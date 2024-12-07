@@ -55,10 +55,11 @@ class WelcomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 80),
 
                   // Join Now Button
                   SizedBox(
+                    height:50,
                     width: double.infinity,
                     child: FilledButton(
                       onPressed: () {},
@@ -79,6 +80,7 @@ class WelcomeScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   // Sign In Button
                   SizedBox(
+                     height:50,
                     width: double.infinity,
                     child: FilledButton(
                       onPressed: () {},

@@ -55,7 +55,7 @@ class WelcomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 50),
 
                   // Join Now Button
                   SizedBox(
@@ -63,7 +63,7 @@ class WelcomeScreen extends StatelessWidget {
                     child: FilledButton(
                       onPressed: () {},
                       style: FilledButton.styleFrom(
-                        backgroundColor: Colors.orange.shade500,
+                        backgroundColor: Color(0xffFFCC00),
                       ),
                       child: const Text(
                         'Join Now',
@@ -76,7 +76,7 @@ class WelcomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   // Sign In Button
                   SizedBox(
                     width: double.infinity,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movie_rating_app/screens/sign_up_screen.dart';
+import 'package:movie_rating_app/widgets/custm_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -40,12 +42,12 @@ class WelcomeScreen extends StatelessWidget {
             bottom: MediaQuery.of(context).size.height * 0.15,
             left: 0,
             right: 0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Text(
+                  Text(
                     'Browse and explore rated movies carefully curated for you',
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -55,49 +57,21 @@ class WelcomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const SizedBox(height: 80),
+                  SizedBox(height: 80),
 
                   // Join Now Button
-                  SizedBox(
-                    height:50,
-                    width: double.infinity,
-                    child: FilledButton(
-                      onPressed: () {},
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Color(0xffFFCC00),
-                      ),
-                      child: const Text(
-                        'Join Now',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
+                  CustomButton(
+                    text: 'Join Now',
+                    color: Color(0xffFFCC00),
+                    page: SignUpScreen(),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20),
                   // Sign In Button
-                  SizedBox(
-                     height:50,
-                    width: double.infinity,
-                    child: FilledButton(
-                      onPressed: () {},
-                      style: FilledButton.styleFrom(
-                        backgroundColor: const Color(0x54545657),
-                      ),
-                      child: const Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
+                  CustomButton(
+                    text: "Sign In",
+                    color: Color(0x54545657),
+                    page: SignUpScreen(),
+                  )
                 ],
               ),
             ),
@@ -107,3 +81,5 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 }
+
+

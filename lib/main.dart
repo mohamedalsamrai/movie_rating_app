@@ -11,7 +11,9 @@ class MovieApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0x09090942)),
+      theme: ThemeData(
+          fontFamily: "Poppins",
+          scaffoldBackgroundColor: const Color(0x09090942)),
       debugShowCheckedModeBanner: false,
       title: 'Movie App',
       home: const WelcomeScreen(),

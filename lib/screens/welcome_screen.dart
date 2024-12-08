@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_rating_app/screens/sign_in.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -59,7 +60,7 @@ class WelcomeScreen extends StatelessWidget {
 
                   // Join Now Button
                   SizedBox(
-                    height:50,
+                    height: 50,
                     width: double.infinity,
                     child: FilledButton(
                       onPressed: () {},
@@ -80,10 +81,14 @@ class WelcomeScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   // Sign In Button
                   SizedBox(
-                     height:50,
+                    height: 50,
                     width: double.infinity,
                     child: FilledButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const SignInScreen()));
+                      },
                       style: FilledButton.styleFrom(
                         backgroundColor: const Color(0x54545657),
                       ),

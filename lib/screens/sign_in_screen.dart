@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_rating_app/screens/sign_up_screen.dart';
 import 'package:movie_rating_app/utils/constants.dart';
 import 'package:movie_rating_app/widgets/custm_button.dart';
 import 'package:movie_rating_app/widgets/custom_text_field.dart';
@@ -56,7 +57,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   const CustomButton(
                     text: "Sign In",
-                    color: Color(0x54545657),
+                    color: Constants.mainColor,
                     page: SizedBox.shrink(),
                   ),
                   const SizedBox(
@@ -70,7 +71,13 @@ class _SignInScreenState extends State<SignInScreen> {
                         style: TextStyle(color: Colors.white),
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SignUpScreen()));
+                          },
                           child: const Text("Sign Up",
                               style: TextStyle(color: Constants.mainColor)))
                     ],

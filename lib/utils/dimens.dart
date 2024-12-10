@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Dimens {
-  static const double _screenWidthSmallSize = 360.0;
+  static const double screenWidthSmallSize = 400;
 
   static AppDimensions getAppDimens(BuildContext context) {
     double screenWidthSize = MediaQuery.of(context).size.width;
 
-    if (screenWidthSize <= _screenWidthSmallSize) return _SmallSizeDimens();
+    if (screenWidthSize <= screenWidthSmallSize) return _SmallSizeDimens();
     return _DefaultDimens();
   }
 }

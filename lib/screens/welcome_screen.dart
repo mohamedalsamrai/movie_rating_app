@@ -60,8 +60,11 @@ class WelcomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  SizedBox(height: Dimens.getAppDimens(context).size80),
-
+                  SizedBox(height:
+                    MediaQuery.of(context).size.width < Dimens.screenWidthSmallSize
+                      ? Dimens.getAppDimens(context).size10
+                      : Dimens.getAppDimens(context).size80
+                  ),
                   // Join Now Button
                   CustomButton(
                     text: AppLocalizations.of(context)!.joinNow,

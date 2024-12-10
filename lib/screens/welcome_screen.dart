@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_rating_app/navigation/nav_destinations.dart';
+import 'package:movie_rating_app/utils/constants.dart';
 import 'package:movie_rating_app/utils/dimens.dart';
 import 'package:movie_rating_app/widgets/custom_button.dart';
 
@@ -68,14 +69,14 @@ class WelcomeScreen extends StatelessWidget {
                   // Join Now Button
                   CustomButton(
                     text: AppLocalizations.of(context)!.joinNow,
-                    color: const Color(0xffFFCC00),
+                    color: Constants.mainColor,
                     onTap: () { context.goNamed(NavDestinations.signUp.name); },
                   ),
                   SizedBox(height: Dimens.getAppDimens(context).size20),
                   // Sign In Button
                   CustomButton(
                     text: AppLocalizations.of(context)!.signIn,
-                    color: const Color(0x54545657),
+                    color: Constants.secondaryButtonColor,
                     onTap: () { context.goNamed(NavDestinations.signIn.name); },
                   )
                 ],

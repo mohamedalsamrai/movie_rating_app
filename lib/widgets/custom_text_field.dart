@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:movie_rating_app/utils/constants.dart';
 import 'package:movie_rating_app/utils/dimens.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -35,11 +36,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
         onChanged: widget.onChanged,
         controller: widget.controller,
         obscureText: widget.isPassField != null ? passState : false,
-        style: const TextStyle(color: Color(0xffffffff)),
-        cursorColor: const Color(0xffFFCC00),
+        style: const TextStyle(color: Colors.white),
+        cursorColor: Constants.mainColor,
         decoration: InputDecoration(
           hintText: widget.hintText,
-          hintStyle: const TextStyle(color: Color.fromARGB(133, 84, 84, 86)),
+          hintStyle: const TextStyle(color: Constants.customTextFieldColor),
           suffixIcon: widget.isPassField != null
             ? Padding(
               padding: const EdgeInsets.all(10),
@@ -62,7 +63,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             ),
             borderSide: BorderSide(
               width: Dimens.getAppDimens(context).customTextFieldBorder,
-              color: const Color(0xffFFCC00)
+              color: Constants.mainColor
             )
           ),
           enabledBorder: OutlineInputBorder(
@@ -71,7 +72,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
             borderSide: BorderSide(
               width: Dimens.getAppDimens(context).customTextFieldBorder,
-              color: const Color.fromARGB(133, 84, 84, 86)
+              color: Constants.customTextFieldColor
             )
           ),
         ),

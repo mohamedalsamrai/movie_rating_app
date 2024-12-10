@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_rating_app/navigation/nav_destinations.dart';
+import 'package:movie_rating_app/utils/constants.dart';
 import 'package:movie_rating_app/utils/dimens.dart';
 import 'package:movie_rating_app/widgets/custom_button.dart';
 import 'package:movie_rating_app/widgets/custom_text_field.dart';
@@ -60,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.09),
                 CustomButton(
                   text: AppLocalizations.of(context)!.signUp,
-                  color: const Color(0xffFFCC00),
+                  color: Constants.mainColor,
                   onTap: () {
                     Navigator.push(
                       context,
@@ -88,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: Text(
                         AppLocalizations.of(context)!.signIn,
                         style: TextStyle(
-                          color: const Color(0xffFFCC00),
+                          color: Constants.mainColor,
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.w500,
                           fontSize: Dimens.getAppDimens(context).fontSize15

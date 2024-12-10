@@ -37,6 +37,14 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.16
 
+  #GoRouter, for navigation.
+  go_router: ^14.6.2
+
+  #Localitazions, also useful to avoid hardcoded strings
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -91,3 +99,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+  generate: true

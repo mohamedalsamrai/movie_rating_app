@@ -1,0 +1,13 @@
+{
+    "appName": "Movie App",
+    "filmz": "Filmz",
+    "filmzSubtitle": "Browse and explore rated movies carefully curated for you",
+    "joinNow": "Join now",
+    "signIn": "Sign in",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "signUp": "Sign up",
+    "doYouHaveAnAccount": "Do you have an account? ",
+    "dontHaveAnAccount": "Don't have an account? "
+}

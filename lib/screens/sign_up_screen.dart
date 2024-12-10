@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_rating_app/screens/sign_in_screen.dart';
-import 'package:movie_rating_app/widgets/custm_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movie_rating_app/navigation/nav_destinations.dart';
+import 'package:movie_rating_app/utils/constants.dart';
+import 'package:movie_rating_app/utils/dimens.dart';
+import 'package:movie_rating_app/widgets/custom_button.dart';
 import 'package:movie_rating_app/widgets/custom_text_field.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -24,80 +28,72 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 14),
+          padding: EdgeInsets.symmetric(
+            horizontal: Dimens.getAppDimens(context).padding14
+          ),
           child: Form(
             child: Column(
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.09,
-                ),
-                Image.asset(
-                  "assets/images/logo.png",
-                  scale: 2.5,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.033,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.09),
+                Image.asset("assets/images/logo.png", scale: 2.5),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.033),
                 CustomTextField(
                   onChanged: (value) {},
                   controller: _usernameTextFieldController,
                   prefixIcon: "assets/icons/person.svg",
-                  hintText: "Username",
+                  hintText: AppLocalizations.of(context)!.username,
                 ),
-                const SizedBox(
-                  height: 37,
-                ),
+                SizedBox(height: Dimens.getAppDimens(context).size37),
                 CustomTextField(
-                    onChanged: (value) {},
-                    controller: _emailTextFieldController,
-                    hintText: "Email",
-                    prefixIcon: "assets/icons/email.svg"),
-                const SizedBox(
-                  height: 37,
+                  onChanged: (value) {},
+                  controller: _emailTextFieldController,
+                  hintText: AppLocalizations.of(context)!.email,
+                  prefixIcon: "assets/icons/email.svg"
                 ),
+                SizedBox(height: Dimens.getAppDimens(context).size37),
                 CustomTextField(
                   onChanged: (value) {},
                   controller: _passwordTextFieldController,
-                  hintText: "Password",
+                  hintText: AppLocalizations.of(context)!.password,
                   prefixIcon: "assets/icons/password.svg",
                   isPassField: true,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.09,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.09),
                 CustomButton(
-                    text: "Sign Up",
-                    color: const Color(0xffFFCC00),
-                    page: Container()),
-                const SizedBox(
-                  height: 20,
+                  text: AppLocalizations.of(context)!.signUp,
+                  color: Constants.mainColor,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Container())
+                    );
+                  }
                 ),
+                SizedBox(height: Dimens.getAppDimens(context).size20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Do you have an account ? ",
+                    Text(
+                      AppLocalizations.of(context)!.doYouHaveAnAccount,
                       style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15),
+                        color: Colors.white,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w500,
+                          fontSize: Dimens.getAppDimens(context).fontSize15
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignInScreen(),
-                            ));
+                        context.goNamed(NavDestinations.signIn.name);
                       },
-                      child: const Text(
-                        "Sign up",
+                      child: Text(
+                        AppLocalizations.of(context)!.signIn,
                         style: TextStyle(
-                            color: Color(0xffFFCC00),
-                            fontFamily: "Poppins",
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15),
+                          color: Constants.mainColor,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w500,
+                          fontSize: Dimens.getAppDimens(context).fontSize15
+                        ),
                       ),
                     )
                   ],

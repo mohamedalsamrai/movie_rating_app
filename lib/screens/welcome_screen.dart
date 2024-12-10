@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_rating_app/screens/sign_in_screen.dart';
-import 'package:movie_rating_app/screens/sign_up_screen.dart';
-import 'package:movie_rating_app/widgets/custm_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movie_rating_app/navigation/nav_destinations.dart';
+import 'package:movie_rating_app/utils/constants.dart';
+import 'package:movie_rating_app/utils/dimens.dart';
+import 'package:movie_rating_app/widgets/custom_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -20,15 +23,13 @@ class WelcomeScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Container(
-              color: Colors.black.withOpacity(0.5),
-            ),
+            child: Container(color: Colors.black.withOpacity(0.5)),
           ),
           // Filmz name in between image
           Align(
             alignment: Alignment.center,
             child: Text(
-              'Filmz',
+              AppLocalizations.of(context)!.filmz,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -43,35 +44,40 @@ class WelcomeScreen extends StatelessWidget {
             bottom: MediaQuery.of(context).size.height * 0.15,
             left: 0,
             right: 0,
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimens.getAppDimens(context).padding20
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    'Browse and explore rated movies carefully curated for you',
+                    AppLocalizations.of(context)!.filmzSubtitle,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 19,
+                      fontSize: Dimens.getAppDimens(context).fontSize19,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  SizedBox(height: 80),
-
+                  SizedBox(height:
+                    MediaQuery.of(context).size.width < Dimens.screenWidthSmallSize
+                      ? Dimens.getAppDimens(context).size10
+                      : Dimens.getAppDimens(context).size80
+                  ),
                   // Join Now Button
                   CustomButton(
-                    text: 'Join Now',
-                    color: Color(0xffFFCC00),
-                    page: SignUpScreen(),
+                    text: AppLocalizations.of(context)!.joinNow,
+                    color: Constants.mainColor,
+                    onTap: () { context.goNamed(NavDestinations.signUp.name); },
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: Dimens.getAppDimens(context).size20),
                   // Sign In Button
                   CustomButton(
-                    text: "Sign In",
-                    color: Color(0x54545657),
-                    page: SignInScreen(),
+                    text: AppLocalizations.of(context)!.signIn,
+                    color: Constants.secondaryButtonColor,
+                    onTap: () { context.goNamed(NavDestinations.signIn.name); },
                   )
                 ],
               ),

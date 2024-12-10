@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:movie_rating_app/utils/dimens.dart';
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField(
-      {super.key,
+    {
+      super.key,
       required this.hintText,
       required this.prefixIcon,
       this.isPassField,
       required this.controller,
-      required this.onChanged});
+      required this.onChanged
+    }
+  );
+
   final String hintText;
   final String prefixIcon;
   final bool? isPassField;
@@ -25,7 +30,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 54,
+      height: Dimens.getAppDimens(context).customTextFieldHeight,
       child: TextFormField(
         onChanged: widget.onChanged,
         controller: widget.controller,
@@ -36,32 +41,39 @@ class _CustomTextFieldState extends State<CustomTextField> {
           hintText: widget.hintText,
           hintStyle: const TextStyle(color: Color.fromARGB(133, 84, 84, 86)),
           suffixIcon: widget.isPassField != null
-              ? Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          passState = !passState;
-                        });
-                      },
-                      icon: passState
-                          ? SvgPicture.asset("assets/icons/close_eye.svg")
-                          : SvgPicture.asset("assets/icons/open_eye.svg")))
-              : const SizedBox(),
+            ? Padding(
+              padding: const EdgeInsets.all(10),
+              child: IconButton(
+                onPressed: () {
+                  setState(() { passState = !passState; });
+                },
+                icon: passState
+                  ? SvgPicture.asset("assets/icons/close_eye.svg")
+                  : SvgPicture.asset("assets/icons/open_eye.svg")
+              )
+            ) : const SizedBox(),
           prefixIcon: Padding(
-            padding: const EdgeInsets.all(10),
-            child: SvgPicture.asset(
-              widget.prefixIcon,
-            ),
+            padding: EdgeInsets.all(Dimens.getAppDimens(context).padding10),
+            child: SvgPicture.asset(widget.prefixIcon),
           ),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide:
-                  const BorderSide(width: 1.3, color: Color(0xffFFCC00))),
+            borderRadius: BorderRadius.circular(
+              Dimens.getAppDimens(context).radius8
+            ),
+            borderSide: BorderSide(
+              width: Dimens.getAppDimens(context).customTextFieldBorder,
+              color: const Color(0xffFFCC00)
+            )
+          ),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                  width: 1.3, color: Color.fromARGB(133, 84, 84, 86))),
+              borderRadius: BorderRadius.circular(
+                Dimens.getAppDimens(context).radius8
+              ),
+            borderSide: BorderSide(
+              width: Dimens.getAppDimens(context).customTextFieldBorder,
+              color: const Color.fromARGB(133, 84, 84, 86)
+            )
+          ),
         ),
       ),
     );

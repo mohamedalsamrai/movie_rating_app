@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:movie_rating_app/screens/sign_up_screen.dart';
 import 'package:movie_rating_app/utils/constants.dart';
+import 'package:movie_rating_app/utils/dimens.dart';
 import 'package:movie_rating_app/widgets/custom_button.dart';
 import 'package:movie_rating_app/widgets/custom_text_field.dart';
 
@@ -28,7 +29,9 @@ class _SignInScreenState extends State<SignInScreen> {
               Center(child: Image.asset("assets/images/logo.png", scale: 2.5)),
               SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(
+                  horizontal: Dimens.getAppDimens(context).padding20
+                ),
                 child: Form(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,7 +42,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         prefixIcon: "assets/icons/email.svg",
                         onChanged: (value) {},
                       ),
-                      const SizedBox(height: 52),
+                      SizedBox(height: Dimens.getAppDimens(context).size52),
                       CustomTextField(
                         controller: _passwordFieldController,
                         hintText: AppLocalizations.of(context)!.password,
@@ -55,7 +58,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         color: Constants.mainColor,
                         page: const SizedBox.shrink(),
                       ),
-                      const SizedBox(height: 10),
+                      SizedBox(height: Dimens.getAppDimens(context).size10),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

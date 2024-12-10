@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:movie_rating_app/screens/sign_in_screen.dart';
 import 'package:movie_rating_app/screens/sign_up_screen.dart';
+import 'package:movie_rating_app/utils/dimens.dart';
 import 'package:movie_rating_app/widgets/custom_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -43,21 +44,23 @@ class WelcomeScreen extends StatelessWidget {
             left: 0,
             right: 0,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: Dimens.getAppDimens(context).padding20
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
                     AppLocalizations.of(context)!.filmzSubtitle,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 19,
+                      fontSize: Dimens.getAppDimens(context).fontSize19,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const SizedBox(height: 80),
+                  SizedBox(height: Dimens.getAppDimens(context).size80),
 
                   // Join Now Button
                   CustomButton(
@@ -65,7 +68,7 @@ class WelcomeScreen extends StatelessWidget {
                     color: const Color(0xffFFCC00),
                     page: const SignUpScreen(),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: Dimens.getAppDimens(context).size20),
                   // Sign In Button
                   CustomButton(
                     text: AppLocalizations.of(context)!.signIn,

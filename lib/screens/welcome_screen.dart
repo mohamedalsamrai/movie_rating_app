@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_rating_app/screens/sign_in_screen.dart';
 import 'package:movie_rating_app/screens/sign_up_screen.dart';
 import 'package:movie_rating_app/widgets/custm_button.dart';
 
@@ -70,7 +71,7 @@ class WelcomeScreen extends StatelessWidget {
                   CustomButton(
                     text: "Sign In",
                     color: Color(0x54545657),
-                    page: SignUpScreen(),
+                    page: SignInScreen(),
                   )
                 ],
               ),

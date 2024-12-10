@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_rating_app/screens/sign_in_screen.dart';
 import 'package:movie_rating_app/widgets/custm_button.dart';
 import 'package:movie_rating_app/widgets/custom_text_field.dart';
 
@@ -83,7 +84,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           fontSize: 15),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignInScreen(),
+                            ));
+                      },
                       child: const Text(
                         "Sign up",
                         style: TextStyle(

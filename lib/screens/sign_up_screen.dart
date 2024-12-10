@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:movie_rating_app/screens/sign_in_screen.dart';
 import 'package:movie_rating_app/widgets/custom_button.dart';
 import 'package:movie_rating_app/widgets/custom_text_field.dart';
@@ -28,76 +29,66 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Form(
             child: Column(
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.09,
-                ),
-                Image.asset(
-                  "assets/images/logo.png",
-                  scale: 2.5,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.033,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.09),
+                Image.asset("assets/images/logo.png", scale: 2.5),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.033),
                 CustomTextField(
                   onChanged: (value) {},
                   controller: _usernameTextFieldController,
                   prefixIcon: "assets/icons/person.svg",
-                  hintText: "Username",
+                  hintText: AppLocalizations.of(context)!.username,
                 ),
-                const SizedBox(
-                  height: 37,
-                ),
+                const SizedBox(height: 37),
                 CustomTextField(
-                    onChanged: (value) {},
-                    controller: _emailTextFieldController,
-                    hintText: "Email",
-                    prefixIcon: "assets/icons/email.svg"),
-                const SizedBox(
-                  height: 37,
+                  onChanged: (value) {},
+                  controller: _emailTextFieldController,
+                  hintText: AppLocalizations.of(context)!.email,
+                  prefixIcon: "assets/icons/email.svg"
                 ),
+                const SizedBox(height: 37),
                 CustomTextField(
                   onChanged: (value) {},
                   controller: _passwordTextFieldController,
-                  hintText: "Password",
+                  hintText: AppLocalizations.of(context)!.password,
                   prefixIcon: "assets/icons/password.svg",
                   isPassField: true,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.09,
-                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.09),
                 CustomButton(
-                    text: "Sign Up",
-                    color: const Color(0xffFFCC00),
-                    page: Container()),
-                const SizedBox(
-                  height: 20,
+                  text: AppLocalizations.of(context)!.signUp,
+                  color: const Color(0xffFFCC00),
+                  page: Container()
                 ),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
-                      "Do you have an account ? ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15),
+                    Text(
+                      AppLocalizations.of(context)!.doYouHaveAnAccount,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignInScreen(),
-                            ));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignInScreen(),
+                          )
+                        );
                       },
-                      child: const Text(
-                        "Sign up",
-                        style: TextStyle(
-                            color: Color(0xffFFCC00),
-                            fontFamily: "Poppins",
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15),
+                      child: Text(
+                        AppLocalizations.of(context)!.signIn,
+                        style: const TextStyle(
+                          color: Color(0xffFFCC00),
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15
+                        ),
                       ),
                     )
                   ],

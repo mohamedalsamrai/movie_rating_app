@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:movie_rating_app/screens/welcome_screen.dart';
 
 void main() {
@@ -12,10 +13,12 @@ class MovieApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          fontFamily: "Poppins",
-          scaffoldBackgroundColor: const Color(0x09090942)),
+        fontFamily: "Poppins",
+        scaffoldBackgroundColor: const Color(0x09090942)
+      ),
       debugShowCheckedModeBanner: false,
-      title: 'Movie App',
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: const WelcomeScreen(),
     );
   }

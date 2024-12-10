@@ -23,12 +23,17 @@ class _SignInScreenState extends State<SignInScreen> {
           child: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.09,
+            ),
             Center(
               child: Image.asset(
                 "assets/images/logo.png",
-                width: 300,
-                height: 300,
+                scale: 2.5,
               ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -43,7 +48,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     onChanged: (value) {},
                   ),
                   const SizedBox(
-                    height: 25,
+                    height: 52,
                   ),
                   CustomTextField(
                     controller: _passwordFieldController,
@@ -52,8 +57,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     prefixIcon: "assets/icons/password.svg",
                     onChanged: (value) {},
                   ),
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.11,
                   ),
                   const CustomButton(
                     text: "Sign In",
@@ -61,7 +66,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     page: SizedBox.shrink(),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 10,
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,

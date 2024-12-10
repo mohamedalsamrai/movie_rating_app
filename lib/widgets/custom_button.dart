@@ -3,12 +3,17 @@ import 'package:movie_rating_app/utils/dimens.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(
-    {super.key, required this.text, required this.color, required this.page}
+    {
+      super.key,
+      required this.text,
+      required this.color,
+      required this.onTap
+    }
   );
 
   final String text;
   final Color color;
-  final Widget page;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +21,7 @@ class CustomButton extends StatelessWidget {
       height: Dimens.getAppDimens(context).customButtonHeight,
       width: double.infinity,
       child: FilledButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => page)
-          );
-        },
+        onPressed: onTap,
         style: FilledButton.styleFrom(backgroundColor: color),
         child: Text(
           text,

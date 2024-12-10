@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:movie_rating_app/screens/sign_in_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movie_rating_app/navigation/nav_destinations.dart';
 import 'package:movie_rating_app/utils/dimens.dart';
 import 'package:movie_rating_app/widgets/custom_button.dart';
 import 'package:movie_rating_app/widgets/custom_text_field.dart';
@@ -60,7 +61,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 CustomButton(
                   text: AppLocalizations.of(context)!.signUp,
                   color: const Color(0xffFFCC00),
-                  page: Container()
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Container())
+                    );
+                  }
                 ),
                 SizedBox(height: Dimens.getAppDimens(context).size20),
                 Row(
@@ -77,12 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignInScreen(),
-                          )
-                        );
+                        context.goNamed(NavDestinations.signIn.name);
                       },
                       child: Text(
                         AppLocalizations.of(context)!.signIn,

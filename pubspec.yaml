@@ -36,6 +36,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.16
+
+  #GoRouter, for navigation.
+  go_router: ^14.6.2
+
+  #Localitazions, also useful to avoid hardcoded strings
   flutter_localizations:
     sdk: flutter
   intl: any

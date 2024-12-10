@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_rating_app/screens/sign_in_screen.dart';
 import 'package:movie_rating_app/screens/sign_up_screen.dart';
-import 'package:movie_rating_app/widgets/custm_button.dart';
+import 'package:movie_rating_app/widgets/custom_button.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

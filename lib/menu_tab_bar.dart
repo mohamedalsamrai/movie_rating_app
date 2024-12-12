@@ -71,7 +71,7 @@ class _MenuTabBarState extends State<MenuTabBar>
           });
         },
         selectedIndex: selectedIndex,
-        height: 65,
+        height: 71,
         indicatorColor: Constants.scaffoldBackgroundColor,
         backgroundColor: Constants.scaffoldBackgroundColor,
         destinations: pagesMenu(),

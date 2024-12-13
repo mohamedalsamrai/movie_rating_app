@@ -9,5 +9,8 @@
     "password": "Password",
     "signUp": "Sign up",
     "doYouHaveAnAccount": "Do you have an account? ",
-    "dontHaveAnAccount": "Don't have an account? "
+    "dontHaveAnAccount": "Don't have an account? ",
+    "error": "Error",
+    "dataNotAvailable": "Data not available",
+    "popularMovies": "Popular movies"
 }

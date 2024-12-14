@@ -5,10 +5,13 @@
 *.pyc
 *.swp
 .DS_Store
+.env
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
 migrate_working_dir/
 
 # IntelliJ related

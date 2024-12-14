@@ -1,7 +1,8 @@
 enum NavDestinations {
   welcome('welcome', '/welcome'),
   signIn('signIn', '/signIn'),
-  signUp('signUp', '/signUp');
+  signUp('signUp', '/signUp'),
+  home('home', '/home');
 
   final String name;
   final String route;

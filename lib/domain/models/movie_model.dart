@@ -15,6 +15,7 @@ class MovieModel {
   final bool video;
   final double voteAverage;
   final int voteCount;
+  bool movieIsSave = false;
 
   MovieModel(
     this.adult,

@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_rating_app/widgets/bottom_nav_screen.dart';
 import 'package:movie_rating_app/navigation/nav_destinations.dart';
 import 'package:movie_rating_app/screens/sign_in_screen.dart';
 import 'package:movie_rating_app/screens/sign_up_screen.dart';
 import 'package:movie_rating_app/screens/welcome_screen.dart';
 
 final router = GoRouter(
-  initialLocation: NavDestinations.home.route,
+  initialLocation: NavDestinations.welcome.route,
   routes: [
     // Welcome.
     GoRoute(
@@ -29,11 +29,11 @@ final router = GoRouter(
       builder: (context, state) => const SignUpScreen()
     ),
 
-    // Home.
+    // BottomNavScreen.
     GoRoute(
-        name: NavDestinations.home.name,
-        path: NavDestinations.home.route,
-        builder: (context, state) => Container() // TODO: Replace with proper screen.
+      name: NavDestinations.bottomNav.name,
+      path: NavDestinations.bottomNav.route,
+      builder: (context, state) => const BottomNavScreen()
     ),
   ],
 );

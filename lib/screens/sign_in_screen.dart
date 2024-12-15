@@ -51,19 +51,12 @@ class _SignInScreenState extends State<SignInScreen> {
                         prefixIcon: "assets/icons/password.svg",
                         onChanged: (value) {},
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.11
-                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.11),
                       CustomButton(
                         text: AppLocalizations.of(context)!.signIn,
                         color: Constants.mainColor,
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SizedBox.shrink()
-                            )
-                          );
+                          context.goNamed(NavDestinations.bottomNav.name);
                         },
                       ),
                       SizedBox(height: Dimens.getAppDimens(context).size10),

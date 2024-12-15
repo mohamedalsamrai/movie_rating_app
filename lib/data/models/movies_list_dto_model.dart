@@ -14,15 +14,14 @@ class MoviesListDtoModel {
   int? totalResults;
 
   MoviesListDtoModel(
-      {this.page, this.results, this.totalPages, this.totalResults});
+    {this.page, this.results, this.totalPages, this.totalResults}
+  );
 
   MoviesListDtoModel.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     if (json['results'] != null) {
       results = <MovieDtoModel>[];
-      json['results'].forEach((v) {
-        results!.add(MovieDtoModel.fromJson(v));
-      });
+      json['results'].forEach((v) { results!.add(MovieDtoModel.fromJson(v)); });
     }
     totalPages = json['total_pages'];
     totalResults = json['total_results'];

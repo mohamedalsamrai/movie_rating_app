@@ -13,4 +13,6 @@ import 'package:movie_rating_app/domain/models/movie_model.dart';
 
 abstract class MoviesRepository {
   Future<List<MovieModel>> getPopularMovies();
+
+  Future<List<MovieModel>> getMoviesByGenre(int idGenre);
 }

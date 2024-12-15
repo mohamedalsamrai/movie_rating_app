@@ -12,5 +12,6 @@
     "dontHaveAnAccount": "Don't have an account? ",
     "error": "Error",
     "dataNotAvailable": "Data not available",
-    "popularMovies": "Popular movies"
+    "popular": "Popular",
+    "action": "Action"
 }

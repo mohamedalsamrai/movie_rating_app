@@ -17,4 +17,9 @@ class MoviesRepositoryImpl extends MoviesRepository {
   Future<List<MovieModel>> getPopularMovies() {
     return networkDatasource.getPopularMovies();
   }
+
+  @override
+  Future<List<MovieModel>> getMoviesByGenre(int idGenre) {
+    return networkDatasource.getMoviesByGenre(idGenre);
+  }
 }

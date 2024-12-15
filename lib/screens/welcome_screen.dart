@@ -23,7 +23,8 @@ class WelcomeScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            child: Container(color: Colors.black.withOpacity(0.5)),
+            // withOpacity() is deprecated.
+            child: Container(color: Constants.black50),
           ),
           // Filmz name in between image
           Align(
@@ -61,10 +62,9 @@ class WelcomeScreen extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  SizedBox(height:
-                    MediaQuery.of(context).size.width < Dimens.screenWidthSmallSize
-                      ? Dimens.getAppDimens(context).size10
-                      : Dimens.getAppDimens(context).size80
+                  SizedBox(height: Dimens.isSmallScreen(context)
+                    ? Dimens.getAppDimens(context).size10
+                    : Dimens.getAppDimens(context).size80
                   ),
                   // Join Now Button
                   CustomButton(

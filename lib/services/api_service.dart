@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
 class ApiService {
   final Dio api;
 
@@ -26,4 +25,15 @@ class ApiService {
 
   // Endpoints.
   Future<Response> getPopularMovies() => api.get('/movie/popular');
+
+  Future<Response> getAllGenres() => api.get('/genre/movie/list');
+
+  Future<Response> getMoviesByGenre(int idGenre) async {
+    final Map<String, dynamic> queryParams = {'with_genres': idGenre};
+    final response = api.get(
+      '/discover/movie',
+      queryParameters: {...api.options.queryParameters, ...queryParams}
+    );
+    return response;
+  }
 }

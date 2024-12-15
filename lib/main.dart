@@ -1,3 +1,4 @@
+import 'package:fimber_io/fimber_io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,6 +19,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(); // Loads environment variables.
   MainModule().initialise(injector); // Initializes Dependency Injection.
+  Fimber.plantTree(DebugTree()); // Initializes logger.
   runApp(
     /*
       For widgets to be able to read providers, we need to wrap the entire

@@ -1,8 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_rating_app/app/providers/genres_provider.dart';
 import 'package:movie_rating_app/app/providers/injector_provider.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
+import 'package:movie_rating_app/domain/usecases/get_movies_by_genre_usecase.dart';
 import 'package:movie_rating_app/domain/usecases/get_popular_movies_usecase.dart';
-import 'package:movie_rating_app/services/api_service.dart';
 
 /*
     State represents the set of data and information which determine how UI
@@ -20,34 +21,39 @@ abstract class LoadMoviesState {}
     - Error: when the data loading fails
 */
 
-class LoadMoviesInitial extends LoadMoviesState {}
+// Popular movies.
+class LoadPopularMoviesInitial extends LoadMoviesState {}
 
-class LoadMoviesLoading extends LoadMoviesState {}
+class LoadPopularMoviesLoading extends LoadMoviesState {}
 
-class LoadMoviesSuccess extends LoadMoviesState {
+class LoadPopularMoviesSuccess extends LoadMoviesState {
   final List<MovieModel> movies;
 
-  LoadMoviesSuccess(this.movies);
+  LoadPopularMoviesSuccess(this.movies);
 }
 
-class LoadMoviesError extends LoadMoviesState {
+class LoadPopularMoviesError extends LoadMoviesState {
   final String message;
 
-  LoadMoviesError(this.message);
+  LoadPopularMoviesError(this.message);
 }
 
 // This class calls the use case and sets the state.
-class LoadMoviesNotifier extends StateNotifier<LoadMoviesState> {
+class LoadPopularMoviesNotifier extends StateNotifier<LoadMoviesState> {
   final GetPopularMoviesUseCase _getPopularMoviesUseCase;
 
-  LoadMoviesNotifier(this._getPopularMoviesUseCase) : super(LoadMoviesInitial());
+  LoadPopularMoviesNotifier(
+    this._getPopularMoviesUseCase
+  ) : super(LoadPopularMoviesInitial());
 
   Future<void> getPopularMovies() async {
     try {
-      state = LoadMoviesLoading();
+      state = LoadPopularMoviesLoading();
       final movies = await _getPopularMoviesUseCase.invoke();
-      state = LoadMoviesSuccess(movies);
-    } catch (e) { state = LoadMoviesError(e.toString()); }
+      state = LoadPopularMoviesSuccess(movies);
+    } catch (e) {
+      state = LoadPopularMoviesError(e.toString());
+    }
   }
 }
 
@@ -56,9 +62,41 @@ class LoadMoviesNotifier extends StateNotifier<LoadMoviesState> {
   the data about popular movies.
 */
 final popularMoviesProvider =
-  StateNotifierProvider<LoadMoviesNotifier, LoadMoviesState>(
-    (ref) => LoadMoviesNotifier(
+  StateNotifierProvider<LoadPopularMoviesNotifier, LoadMoviesState>(
+    (ref) => LoadPopularMoviesNotifier(
       // We're injecting the use case to get our data.
       ref.watch(injectorProvider).get<GetPopularMoviesUseCase>()
     )
   );
+
+/*final moviesByGenreProvider =
+  StateNotifierProvider<LoadMoviesByGenreNotifier, LoadMoviesState>(
+    (ref) => LoadMoviesByGenreNotifier(
+      ref.watch(injectorProvider).get<GetMoviesByGenreUseCase>()
+    )
+  );*/
+final moviesByGenreProvider = FutureProvider<Map<String, List<MovieModel>>>(
+  (ref) async {
+    final genres = await ref.watch(genresProvider.future);
+    final useCase = ref.watch(injectorProvider).get<GetMoviesByGenreUseCase>();
+
+    Map<String, List<MovieModel>> moviesByGenreMap = {};
+    List<Future> futures = [];
+
+    // Collect all Futures and then put all movies lists into the Map.
+    for (var genre in genres) {
+      futures.add(
+        useCase.invoke(genre.id).then(
+          (movies) { moviesByGenreMap[genre.name] = movies; }
+        )
+      );
+    }
+
+    /*
+      Run in parallel all Futures and once they're all completed return the
+      results.
+    */
+    await Future.wait(futures);
+    return moviesByGenreMap;
+  }
+);

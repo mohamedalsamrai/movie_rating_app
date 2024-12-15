@@ -1,1 +1,1 @@
-String getImageUrl(String path) => 'http://image.tmdb.org/t/p/w500$path';
+String getImageUrl(String path) => 'http://image.tmdb.org/t/p/original$path';

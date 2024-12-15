@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:movie_rating_app/menu_tab_bar.dart';
+import 'package:movie_rating_app/widgets/bottom_nav_screen.dart';
 import 'package:movie_rating_app/navigation/nav_destinations.dart';
 import 'package:movie_rating_app/screens/sign_in_screen.dart';
 import 'package:movie_rating_app/screens/sign_up_screen.dart';
@@ -17,18 +17,23 @@ final router = GoRouter(
 
     // SignIn.
     GoRoute(
-        name: NavDestinations.signIn.name,
-        path: NavDestinations.signIn.route,
-        builder: (context, state) => const SignInScreen()),
+      name: NavDestinations.signIn.name,
+      path: NavDestinations.signIn.route,
+      builder: (context, state) => const SignInScreen()
+    ),
 
     // SignUp.
     GoRoute(
-        name: NavDestinations.signUp.name,
-        path: NavDestinations.signUp.route,
-        builder: (context, state) => const SignUpScreen()),
+      name: NavDestinations.signUp.name,
+      path: NavDestinations.signUp.route,
+      builder: (context, state) => const SignUpScreen()
+    ),
+
+    // BottomNavScreen.
     GoRoute(
-        name: NavDestinations.menuTapBar.name,
-        path: NavDestinations.menuTapBar.route,
-        builder: (context, state) => const MenuTabBar()),
+      name: NavDestinations.bottomNav.name,
+      path: NavDestinations.bottomNav.route,
+      builder: (context, state) => const BottomNavScreen()
+    ),
   ],
 );

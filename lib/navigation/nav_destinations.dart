@@ -2,7 +2,7 @@ enum NavDestinations {
   welcome('welcome', '/welcome'),
   signIn('signIn', '/signIn'),
   signUp('signUp', '/signUp'),
-  menuTapBar('menu_tab_bar', '/menu_tab_bar');
+  bottomNav('bottomNav', '/bottomNav');
 
   final String name;
   final String route;

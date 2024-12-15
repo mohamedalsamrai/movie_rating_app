@@ -1,34 +1,26 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:movie_rating_app/models/movie.dart';
+import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/utils/constants.dart';
+import 'package:movie_rating_app/utils/utilities.dart';
 
 class MovieCarousel extends StatefulWidget {
+  const MovieCarousel({super.key, required this.movies});
+
+  final List<MovieModel> movies;
+
   @override
-  _MovieCarouselState createState() => _MovieCarouselState();
+  State<MovieCarousel> createState() => _MovieCarouselState();
 }
 
 class _MovieCarouselState extends State<MovieCarousel> {
   int currentIndex = 0;
 
-  final List<Movie> movies = [
-    Movie(
-        imagePath: 'assets/images/top_image.jpg',
-        rate: 6.6,
-        title: 'Sidelined: The QB and Me'),
-    Movie(
-        imagePath: 'assets/images/top_image.jpg',
-        rate: 7.5,
-        title: 'Another Movie Title'),
-    Movie(
-        imagePath: 'assets/images/top_image.jpg',
-        rate: 8.2,
-        title: 'Third Movie Title')
-  ];
-
   @override
   Widget build(BuildContext context) {
+    widget.movies.sort((a, b) => b.voteAverage.compareTo(a.voteAverage));
+
     return Column(
       children: [
         CarouselSlider(
@@ -42,13 +34,13 @@ class _MovieCarouselState extends State<MovieCarousel> {
             },
           ),
           items: List.generate(
-              movies.length,
+              widget.movies.length,
               (index) => Stack(
                     fit: StackFit.expand,
                     children: [
                       InkWell(
-                        child: Image.asset(
-                          movies[index].imagePath,
+                        child: Image.network(
+                          getImageUrl(widget.movies[index].backdropPath),
                           fit: BoxFit.cover,
                         ),
                         onTap: () {},
@@ -68,7 +60,9 @@ class _MovieCarouselState extends State<MovieCarousel> {
                                 ),
                                 const SizedBox(width: 6),
                                 Text(
-                                  '${movies[index].rate}',
+                                  widget.movies[index].voteAverage
+                                      .toString()
+                                      .substring(0, 3),
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w700,
@@ -80,7 +74,7 @@ class _MovieCarouselState extends State<MovieCarousel> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  movies[index].title,
+                                  widget.movies[index].title,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 17,
@@ -90,15 +84,15 @@ class _MovieCarouselState extends State<MovieCarousel> {
                                 InkWell(
                                   child: Icon(
                                     Icons.bookmark,
-                                    color: movies[index].movieIsSave
+                                    color: widget.movies[index].movieIsSave
                                         ? Constants.mainColor
                                         : Constants.iconTurnOffColor,
                                     size: 27,
                                   ),
                                   onTap: () {
                                     setState(() {
-                                      movies[index].movieIsSave =
-                                          !movies[index].movieIsSave;
+                                      widget.movies[index].movieIsSave =
+                                          !widget.movies[index].movieIsSave;
                                     });
                                   },
                                 ),
@@ -116,7 +110,7 @@ class _MovieCarouselState extends State<MovieCarousel> {
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
-                movies.length,
+                widget.movies.length,
                 (index) => AnimatedContainer(
                       duration: const Duration(milliseconds: 250),
                       margin: const EdgeInsets.symmetric(horizontal: 5),

@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
+import 'package:movie_rating_app/screens/movie_details_screen.dart';
 import 'package:movie_rating_app/utils/constants.dart';
 import 'package:movie_rating_app/utils/utilities.dart';
 
@@ -43,7 +44,14 @@ class _MovieCarouselState extends State<MovieCarousel> {
                           getImageUrl(widget.movies[index].backdropPath),
                           fit: BoxFit.cover,
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           MovieDetailsScreen(widget.movies[index].id),
+                          //     ));
+                        },
                       ),
                       Positioned(
                         bottom: 10,

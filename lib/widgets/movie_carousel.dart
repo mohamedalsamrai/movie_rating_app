@@ -45,12 +45,12 @@ class _MovieCarouselState extends State<MovieCarousel> {
                           fit: BoxFit.cover,
                         ),
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) =>
-                          //           MovieDetailsScreen(widget.movies[index].id),
-                          //     ));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    MovieDetailsScreen(widget.movies[index].id),
+                              ));
                         },
                       ),
                       Positioned(

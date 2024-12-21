@@ -1,9 +1,11 @@
 import 'package:movie_rating_app/data/models/cast_list_dto_model.dart';
 import 'package:movie_rating_app/data/models/genres_list_dto_model.dart';
 import 'package:movie_rating_app/data/models/movies_list_dto_model.dart';
+import 'package:movie_rating_app/data/models/trailer_video_list_dto_model.dart';
 import 'package:movie_rating_app/domain/models/cast_model.dart';
 import 'package:movie_rating_app/domain/models/genre_model.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
+import 'package:movie_rating_app/domain/models/trailer_video_model.dart';
 import 'package:movie_rating_app/services/api_service.dart';
 
 /*
@@ -18,6 +20,7 @@ abstract class NetworkDatasource {
 
   Future<List<GenreModel>> getAllGenres();
   Future<List<CastModel>> getCast(int id);
+  Future<List<TrailerVideoModel>> getTrailerVideo(int id);
 }
 
 /*
@@ -77,6 +80,20 @@ class NetworkDatasourceImpl extends NetworkDatasource {
     try {
       final response = await api.getCast(id);
       return CastListDtoModel.fromJson(response.data)
+              .results
+              ?.map((v) => v.toDomainModel())
+              .toList() ??
+          [];
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+  
+  @override
+  Future<List<TrailerVideoModel>> getTrailerVideo(int id) async{
+     try {
+      final response = await api.getTrailerVideo(id);
+      return TrailerVideoListDtoModel.fromJson(response.data)
               .results
               ?.map((v) => v.toDomainModel())
               .toList() ??

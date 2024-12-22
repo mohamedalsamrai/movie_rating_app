@@ -30,7 +30,6 @@ class LoadTrailerVideoNotifier extends StateNotifier<LoadTrailerVideoState> {
       state = LoadTrailerVideoSuccess(trailerVideo);
     } catch (e) {
       state = LoadTrailerVideoError(e.toString());
-      print(e.toString());
     }
   }
 }

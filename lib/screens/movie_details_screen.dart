@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_rating_app/app/providers/cast_provider.dart';
+import 'package:movie_rating_app/app/providers/genres_provider.dart';
 import 'package:movie_rating_app/app/providers/trailer_video_provider.dart';
 import 'package:movie_rating_app/domain/models/cast_model.dart';
+import 'package:movie_rating_app/domain/models/genre_model.dart';
+import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/domain/models/trailer_video_model.dart';
-import 'package:movie_rating_app/utils/utilities.dart';
+import 'package:movie_rating_app/utils/constants.dart';
+import 'package:movie_rating_app/widgets/cast_list.dart';
+import 'package:movie_rating_app/widgets/genre_list.dart';
+import 'package:movie_rating_app/widgets/rate_widget.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class MovieDetailsScreen extends ConsumerStatefulWidget {
-  final int id;
-  MovieDetailsScreen(this.id, {super.key});
+  final MovieModel movieModel;
+  const MovieDetailsScreen(this.movieModel, {super.key});
 
   @override
   ConsumerState<MovieDetailsScreen> createState() => _MovieScreenState();
@@ -19,13 +26,15 @@ class MovieDetailsScreen extends ConsumerStatefulWidget {
 class _MovieScreenState extends ConsumerState<MovieDetailsScreen> {
   void _loadCast() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(castProviders.notifier).getCast(widget.id);
+      ref.read(castProviders.notifier).getCast(widget.movieModel.id);
     });
   }
 
   void _loadTrailerVideo() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(trailerVideoProviders.notifier).getTrailerVideo(widget.id);
+      ref
+          .read(trailerVideoProviders.notifier)
+          .getTrailerVideo(widget.movieModel.id);
     });
   }
 
@@ -38,20 +47,31 @@ class _MovieScreenState extends ConsumerState<MovieDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.id);
     final castState = ref.watch(castProviders);
     final trailerVideoState = ref.watch(trailerVideoProviders);
+    final genresState = ref.watch(genresProvider);
     if (castState is LoadCastLoading &&
-        trailerVideoState is LoadTrailerVideoLoading) {
-      return _LoadingLayout();
+        trailerVideoState is LoadTrailerVideoLoading &&
+        genresState.isLoading) {
+      return const _LoadingLayout();
     }
     if (castState is LoadCastSuccess &&
-        trailerVideoState is LoadTrailerVideoSuccess) {
+        trailerVideoState is LoadTrailerVideoSuccess &&
+        genresState.hasValue) {
       return _SuccessLayout(
-          castState.castList, context, trailerVideoState.trailerVideoList);
+          castState.castList,
+          context,
+          trailerVideoState.trailerVideoList,
+          widget.movieModel,
+          genresState.value);
+    }
+    if (castState is LoadCastError &&
+        trailerVideoState is LoadTrailerVideoError &&
+        genresState.hasError) {
+      return const _ErrorLayout();
     }
 
-    return _ErrorLayout();
+    return const _LoadingLayout();
   }
 }
 
@@ -59,8 +79,10 @@ class _LoadingLayout extends StatelessWidget {
   const _LoadingLayout();
 
   @override
-  Widget build(BuildContext context) =>
-      const Center(child: CircularProgressIndicator());
+  Widget build(BuildContext context) => const Center(
+          child: CircularProgressIndicator(
+        color: Constants.mainColor,
+      ));
 }
 
 class _ErrorLayout extends StatelessWidget {
@@ -76,21 +98,159 @@ class _ErrorLayout extends StatelessWidget {
 class _SuccessLayout extends StatefulWidget {
   final BuildContext context;
   final List<CastModel> castList;
+  final MovieModel movieModel;
   final List<TrailerVideoModel> trailerVideoList;
-  _SuccessLayout(this.castList, this.context, this.trailerVideoList);
+  final List<GenreModel>? genreMovieList;
+  const _SuccessLayout(this.castList, this.context, this.trailerVideoList,
+      this.movieModel, this.genreMovieList);
 
   @override
   State<_SuccessLayout> createState() => _SuccessLayoutState();
 }
 
 class _SuccessLayoutState extends State<_SuccessLayout> {
+  late YoutubePlayerController _controller;
+
+  @override
+  void initState() {
+    _controller = YoutubePlayerController(
+      initialVideoId: widget.trailerVideoList[0].key,
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(getVideoUrl(widget.trailerVideoList[0].key));
-
+    final genreMovieList = widget.genreMovieList!
+        .where((v) {
+          return widget.movieModel.genreIds.contains(v.id);
+        })
+        .map((v) => v.name)
+        .toList();
     return Scaffold(
-        body: SizedBox(
-      width: 50,
+        body: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 3),
+      child: YoutubePlayerBuilder(
+          player: YoutubePlayer(
+            actionsPadding: const EdgeInsets.all(0),
+            controller: _controller,
+          ),
+          builder: (context, player) {
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 50, bottom: 27),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        child: SvgPicture.asset("assets/icons/arrow.svg"),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Spacer(),
+                      const Text(
+                        "Movie details",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 23,
+                            color: Color(0xffffffff)),
+                      ),
+                      const Spacer()
+                    ],
+                  ),
+                ),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(10), child: player),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.025,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      widget.movieModel.title,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                          color: Color(0xffffffff)),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    RateWidget(movie: widget.movieModel),
+                    const Spacer(),
+                    InkWell(
+                      child: widget.movieModel.movieIsSave
+                          ? SvgPicture.asset("assets/icons/save_on.svg")
+                          : SvgPicture.asset("assets/icons/save_off.svg"),
+                      onTap: () {
+                        setState(() {
+                          widget.movieModel.movieIsSave =
+                              !widget.movieModel.movieIsSave;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                GenreList(genreMovieList),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.060,
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Overview",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                          color: Color(0xffffffff)),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.025,
+                    ),
+                    Text(
+                      widget.movieModel.overview,
+                      style: const TextStyle(
+                          height: 1.5,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 10,
+                          color: Color(0xff545454)),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Top Cast",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                          color: Color(0xffffffff)),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                    ),
+                    CastList(
+                      castList: widget.castList,
+                    ),
+                  ],
+                )
+              ],
+            );
+          }),
     ));
   }
 }

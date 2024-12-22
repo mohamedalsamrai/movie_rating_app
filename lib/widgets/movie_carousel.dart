@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/screens/movie_details_screen.dart';
 import 'package:movie_rating_app/utils/constants.dart';
 import 'package:movie_rating_app/utils/utilities.dart';
+import 'package:movie_rating_app/widgets/rate_widget.dart';
 
 class MovieCarousel extends StatefulWidget {
   const MovieCarousel({super.key, required this.movies});
@@ -49,7 +49,7 @@ class _MovieCarouselState extends State<MovieCarousel> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    MovieDetailsScreen(widget.movies[index].id),
+                                    MovieDetailsScreen(widget.movies[index]),
                               ));
                         },
                       ),
@@ -60,24 +60,7 @@ class _MovieCarouselState extends State<MovieCarousel> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/icons/imdb.svg',
-                                  height: 15,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  widget.movies[index].voteAverage
-                                      .toString()
-                                      .substring(0, 3),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            RateWidget(movie: widget.movies[index]),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

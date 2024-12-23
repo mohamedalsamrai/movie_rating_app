@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
+import 'package:movie_rating_app/screens/section_screen.dart';
 import 'package:movie_rating_app/utils/constants.dart';
 import 'package:movie_rating_app/widgets/movie_card.dart';
 
-import '../navigation/nav_destinations.dart';
-
-
-
 class MoviesSectionsList extends StatelessWidget {
-  const MoviesSectionsList(
-      {super.key,
-      required this.movies,
-      required this.name,
-      });
+  const MoviesSectionsList({
+    super.key,
+    required this.movies,
+    required this.name,
+  });
 
   final List<MovieModel> movies;
   final String name;
@@ -42,7 +38,11 @@ class MoviesSectionsList extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                           color: Constants.mainColor)),
                   onTap: () {
-                    context.goNamed(NavDestinations.section.name,extra: name);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SectionScreen(name: name),
+                        ));
                   },
                 ),
               ],
@@ -59,10 +59,10 @@ class MoviesSectionsList extends StatelessWidget {
               itemCount: movies.length,
               itemBuilder: (context, index) {
                 final movie = movies[index];
-                return buildMovieCard(movie);
+                return buildMovieCard(movie,context);
               },
             ),
-          )
+          ),
         ],
       );
 }

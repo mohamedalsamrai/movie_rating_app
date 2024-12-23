@@ -6,8 +6,6 @@ import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/utils/constants.dart';
 import 'package:movie_rating_app/utils/dimens.dart';
 import 'package:movie_rating_app/widgets/movie_card.dart';
-import 'package:go_router/go_router.dart';
-import '../navigation/nav_destinations.dart';
 
 class SectionScreen extends ConsumerStatefulWidget {
   const SectionScreen({
@@ -169,7 +167,7 @@ class _SuccessLayout extends StatelessWidget {
             color: Constants.mainColor,
           ),
           onPressed: () {
-            context.goNamed(NavDestinations.bottomNav.name);
+            Navigator.pop(context);
           },
         ),
       ),
@@ -191,7 +189,7 @@ class _SuccessLayout extends StatelessWidget {
                 itemCount: moviesList.length,
                 itemBuilder: (context, index) {
                   final movie = moviesList[index];
-                  return buildMovieCard(movie);
+                  return buildMovieCard(movie,context);
                 },
               ),
               // Pagination buttons

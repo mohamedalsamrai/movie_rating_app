@@ -42,14 +42,13 @@ class LoadPopularMoviesError extends LoadMoviesState {
 class LoadPopularMoviesNotifier extends StateNotifier<LoadMoviesState> {
   final GetPopularMoviesUseCase _getPopularMoviesUseCase;
 
-  LoadPopularMoviesNotifier(
-    this._getPopularMoviesUseCase
-  ) : super(LoadPopularMoviesInitial());
+  LoadPopularMoviesNotifier(this._getPopularMoviesUseCase)
+      : super(LoadPopularMoviesInitial());
 
-  Future<void> getPopularMovies() async {
+  Future<void> getPopularMovies({required int pageNo}) async {
     try {
       state = LoadPopularMoviesLoading();
-      final movies = await _getPopularMoviesUseCase.invoke();
+      final movies = await _getPopularMoviesUseCase.invoke(pageNo: pageNo);
       state = LoadPopularMoviesSuccess(movies);
     } catch (e) {
       state = LoadPopularMoviesError(e.toString());
@@ -62,12 +61,10 @@ class LoadPopularMoviesNotifier extends StateNotifier<LoadMoviesState> {
   the data about popular movies.
 */
 final popularMoviesProvider =
-  StateNotifierProvider<LoadPopularMoviesNotifier, LoadMoviesState>(
-    (ref) => LoadPopularMoviesNotifier(
-      // We're injecting the use case to get our data.
-      ref.watch(injectorProvider).get<GetPopularMoviesUseCase>()
-    )
-  );
+    StateNotifierProvider<LoadPopularMoviesNotifier, LoadMoviesState>(
+        (ref) => LoadPopularMoviesNotifier(
+            // We're injecting the use case to get our data.
+            ref.watch(injectorProvider).get<GetPopularMoviesUseCase>()));
 
 /*final moviesByGenreProvider =
   StateNotifierProvider<LoadMoviesByGenreNotifier, LoadMoviesState>(
@@ -75,28 +72,26 @@ final popularMoviesProvider =
       ref.watch(injectorProvider).get<GetMoviesByGenreUseCase>()
     )
   );*/
-final moviesByGenreProvider = FutureProvider<Map<String, List<MovieModel>>>(
-  (ref) async {
-    final genres = await ref.watch(genresProvider.future);
-    final useCase = ref.watch(injectorProvider).get<GetMoviesByGenreUseCase>();
+final moviesByGenreProvider =
+    FutureProvider.family<Map<String, List<MovieModel>>, int>(
+        (ref, pageNo) async {
+  final genres = await ref.watch(genresProvider.future);
+  final useCase = ref.watch(injectorProvider).get<GetMoviesByGenreUseCase>();
 
-    Map<String, List<MovieModel>> moviesByGenreMap = {};
-    List<Future> futures = [];
+  Map<String, List<MovieModel>> moviesByGenreMap = {};
+  List<Future> futures = [];
 
-    // Collect all Futures and then put all movies lists into the Map.
-    for (var genre in genres) {
-      futures.add(
-        useCase.invoke(genre.id).then(
-          (movies) { moviesByGenreMap[genre.name] = movies; }
-        )
-      );
-    }
+  // Collect all Futures and then put all movies lists into the Map.
+  for (var genre in genres) {
+    futures.add(useCase.invoke(genre.id, pageNo).then((movies) {
+      moviesByGenreMap[genre.name] = movies;
+    }));
+  }
 
-    /*
+  /*
       Run in parallel all Futures and once they're all completed return the
       results.
     */
-    await Future.wait(futures);
-    return moviesByGenreMap;
-  }
-);
+  await Future.wait(futures);
+  return moviesByGenreMap;
+});

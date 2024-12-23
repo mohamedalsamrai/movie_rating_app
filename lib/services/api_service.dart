@@ -24,16 +24,15 @@ class ApiService {
   }
 
   // Endpoints.
-  Future<Response> getPopularMovies() => api.get('/movie/popular');
+  Future<Response> getPopularMovies({required int pageNo}) =>
+      api.get('/movie/popular', queryParameters: {'page': pageNo});
 
   Future<Response> getAllGenres() => api.get('/genre/movie/list');
 
-  Future<Response> getMoviesByGenre(int idGenre) async {
-    final Map<String, dynamic> queryParams = {'with_genres': idGenre};
-    final response = api.get(
-      '/discover/movie',
-      queryParameters: {...api.options.queryParameters, ...queryParams}
-    );
+  Future<Response> getMoviesByGenre(int idGenre, int pageNo) async {
+    final Map<String, dynamic> queryParams = {'with_genres': idGenre, 'page': pageNo};
+    final response = api.get('/discover/movie',
+        queryParameters: {...api.options.queryParameters, ...queryParams});
     return response;
   }
 }

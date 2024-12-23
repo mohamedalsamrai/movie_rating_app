@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:movie_rating_app/screens/section_screen.dart';
 import 'package:movie_rating_app/widgets/bottom_nav_screen.dart';
 import 'package:movie_rating_app/navigation/nav_destinations.dart';
 import 'package:movie_rating_app/screens/sign_in_screen.dart';
@@ -17,23 +18,31 @@ final router = GoRouter(
 
     // SignIn.
     GoRoute(
-      name: NavDestinations.signIn.name,
-      path: NavDestinations.signIn.route,
-      builder: (context, state) => const SignInScreen()
-    ),
+        name: NavDestinations.signIn.name,
+        path: NavDestinations.signIn.route,
+        builder: (context, state) => const SignInScreen()),
 
     // SignUp.
     GoRoute(
-      name: NavDestinations.signUp.name,
-      path: NavDestinations.signUp.route,
-      builder: (context, state) => const SignUpScreen()
-    ),
+        name: NavDestinations.signUp.name,
+        path: NavDestinations.signUp.route,
+        builder: (context, state) => const SignUpScreen()),
 
     // BottomNavScreen.
     GoRoute(
-      name: NavDestinations.bottomNav.name,
-      path: NavDestinations.bottomNav.route,
-      builder: (context, state) => const BottomNavScreen()
-    ),
+        name: NavDestinations.bottomNav.name,
+        path: NavDestinations.bottomNav.route,
+        builder: (context, state) => const BottomNavScreen()),
+
+    // Section Screen.
+    GoRoute(
+        name: NavDestinations.section.name,
+        path: NavDestinations.section.route,
+        builder: (context, state) {
+          final name = state.extra as String;
+          return SectionScreen(
+            name: name,
+          );
+        }),
   ],
 );

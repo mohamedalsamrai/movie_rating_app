@@ -13,5 +13,5 @@ class GetPopularMoviesUseCase {
 
   GetPopularMoviesUseCase(this.moviesRepository);
 
-  Future<List<MovieModel>> invoke() async => moviesRepository.getPopularMovies();
+  Future<List<MovieModel>> invoke({required int pageNo}) async => moviesRepository.getPopularMovies(pageNo: pageNo);
 }

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/utils/constants.dart';
-import 'package:movie_rating_app/utils/utilities.dart';
+import 'package:movie_rating_app/widgets/movie_card.dart';
+
+import '../navigation/nav_destinations.dart';
+
+
 
 class MoviesSectionsList extends StatelessWidget {
-  const MoviesSectionsList({
-    super.key,
-    required this.movies,
-    required this.name,
-  });
+  const MoviesSectionsList(
+      {super.key,
+      required this.movies,
+      required this.name,
+      });
 
   final List<MovieModel> movies;
   final String name;
@@ -37,7 +41,9 @@ class MoviesSectionsList extends StatelessWidget {
                           fontSize: 11,
                           fontWeight: FontWeight.w700,
                           color: Constants.mainColor)),
-                  onTap: () {},
+                  onTap: () {
+                    context.goNamed(NavDestinations.section.name,extra: name);
+                  },
                 ),
               ],
             ),
@@ -51,40 +57,12 @@ class MoviesSectionsList extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: movies.length,
-              itemBuilder: (context, index) => Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          getImageUrl(movies[index].posterPath),
-                          fit: BoxFit.cover,
-                          width: 145,
-                        )),
-                  ),
-                  Positioned(
-                      top: 6,
-                      left: 23,
-                      right: 10,
-                      child: Row(children: [
-                        SvgPicture.asset(
-                          'assets/icons/imdb.svg',
-                          height: 15,
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          movies[index].voteAverage.toString().substring(0, 3),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ]))
-                ],
-              ),
+              itemBuilder: (context, index) {
+                final movie = movies[index];
+                return buildMovieCard(movie);
+              },
             ),
-          ),
+          )
         ],
       );
 }

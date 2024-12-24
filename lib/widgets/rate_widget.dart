@@ -12,7 +12,7 @@ class RateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
+    return Row(mainAxisSize: MainAxisSize.min, children: [
       SvgPicture.asset(
         'assets/icons/imdb.svg',
         height: 15,

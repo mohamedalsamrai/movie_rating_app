@@ -23,28 +23,30 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   // Callbacks from providers.
   void _loadPopularMovies() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(popularMoviesProvider.notifier).getPopularMovies();
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ref.read(popularMoviesProvider.notifier).getPopularMovies(pageNo: 1);
+      }
+    );
   }
 
-  void _loadMoviesByGenres() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(moviesByGenreProvider);
-    });
+  void _loadMoviesByGenres(int pageNo) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) { ref.read(moviesByGenreProvider(pageNo)); }
+    );
   }
 
   @override
   void initState() {
     _loadPopularMovies();
-    _loadMoviesByGenres();
+    _loadMoviesByGenres(1);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final popularMoviesState = ref.watch(popularMoviesProvider);
-    final moviesByGenreState = ref.watch(moviesByGenreProvider);
+    final moviesByGenreState = ref.watch(moviesByGenreProvider(1));
 
     /*
       The approach here is to have separated layouts depending on the 

@@ -17,23 +17,20 @@ final router = GoRouter(
 
     // SignIn.
     GoRoute(
-      name: NavDestinations.signIn.name,
-      path: NavDestinations.signIn.route,
-      builder: (context, state) => const SignInScreen()
-    ),
+        name: NavDestinations.signIn.name,
+        path: NavDestinations.signIn.route,
+        builder: (context, state) => const SignInScreen()),
 
     // SignUp.
     GoRoute(
-      name: NavDestinations.signUp.name,
-      path: NavDestinations.signUp.route,
-      builder: (context, state) => const SignUpScreen()
-    ),
+        name: NavDestinations.signUp.name,
+        path: NavDestinations.signUp.route,
+        builder: (context, state) => const SignUpScreen()),
 
     // BottomNavScreen.
     GoRoute(
-      name: NavDestinations.bottomNav.name,
-      path: NavDestinations.bottomNav.route,
-      builder: (context, state) => const BottomNavScreen()
-    ),
+        name: NavDestinations.bottomNav.name,
+        path: NavDestinations.bottomNav.route,
+        builder: (context, state) => const BottomNavScreen()),
   ],
 );

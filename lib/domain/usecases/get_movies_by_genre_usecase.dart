@@ -13,7 +13,7 @@ class GetMoviesByGenreUseCase {
 
   GetMoviesByGenreUseCase(this.moviesRepository);
 
-  Future<List<MovieModel>> invoke(int idGenre) async {
-    return moviesRepository.getMoviesByGenre(idGenre);
+  Future<List<MovieModel>> invoke(int idGenre,int pageNo) async {
+    return moviesRepository.getMoviesByGenre(idGenre,pageNo);
   }
 }

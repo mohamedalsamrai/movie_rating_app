@@ -14,9 +14,9 @@ import 'package:movie_rating_app/services/api_service.dart';
 */
 
 abstract class NetworkDatasource {
-  Future<List<MovieModel>> getPopularMovies();
+  Future<List<MovieModel>> getPopularMovies(int pageNo);
 
-  Future<List<MovieModel>> getMoviesByGenre(int idGenre);
+  Future<List<MovieModel>> getMoviesByGenre(int idGenre, int pageNo);
 
   Future<List<GenreModel>> getAllGenres();
   Future<List<CastModel>> getCast(int id);
@@ -34,9 +34,9 @@ class NetworkDatasourceImpl extends NetworkDatasource {
   NetworkDatasourceImpl(this.api);
 
   @override
-  Future<List<MovieModel>> getPopularMovies() async {
+  Future<List<MovieModel>> getPopularMovies(int pageNo) async {
     try {
-      final response = await api.getPopularMovies();
+      final response = await api.getPopularMovies(pageNo: pageNo);
       return MoviesListDtoModel.fromJson(response.data)
               .results
               ?.map((movie) => movie.toDomainModel())
@@ -48,9 +48,9 @@ class NetworkDatasourceImpl extends NetworkDatasource {
   }
 
   @override
-  Future<List<MovieModel>> getMoviesByGenre(int idGenre) async {
+  Future<List<MovieModel>> getMoviesByGenre(int idGenre, int pageNo) async {
     try {
-      final response = await api.getMoviesByGenre(idGenre);
+      final response = await api.getMoviesByGenre(idGenre, pageNo);
       return MoviesListDtoModel.fromJson(response.data)
               .results
               ?.map((movie) => movie.toDomainModel())
@@ -88,10 +88,10 @@ class NetworkDatasourceImpl extends NetworkDatasource {
       return Future.error(e);
     }
   }
-  
+
   @override
-  Future<List<TrailerVideoModel>> getTrailerVideo(int id) async{
-     try {
+  Future<List<TrailerVideoModel>> getTrailerVideo(int id) async {
+    try {
       final response = await api.getTrailerVideo(id);
       return TrailerVideoListDtoModel.fromJson(response.data)
               .results

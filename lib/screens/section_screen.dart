@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:movie_rating_app/app/providers/movies_provider.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/utils/constants.dart';
-import 'package:movie_rating_app/utils/dimens.dart';
 import 'package:movie_rating_app/widgets/movie_card.dart';
 
 class SectionScreen extends ConsumerStatefulWidget {
@@ -101,7 +101,9 @@ class _LoadingLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          color: Constants.mainColor,
+        ),
       );
 }
 
@@ -137,7 +139,6 @@ class _SuccessLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final crossAxisCount = Dimens.isSmallScreen(context) ? 2 : 4;
     final moviesList =
         name == 'Popular' ? popularMoviesList : moviesByGenreMap[name] ?? [];
 
@@ -162,10 +163,7 @@ class _SuccessLayout extends StatelessWidget {
         titleTextStyle:
             const TextStyle(fontSize: 23, fontWeight: FontWeight.w700),
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_outlined,
-            color: Constants.mainColor,
-          ),
+          icon: SvgPicture.asset("assets/icons/arrow.svg"),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -173,54 +171,56 @@ class _SuccessLayout extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: 2,
-                  mainAxisSpacing: 2,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 15,
                   childAspectRatio: 0.8,
-                ),
-                itemCount: moviesList.length,
-                itemBuilder: (context, index) {
-                  final movie = moviesList[index];
-                  return buildMovieCard(movie,context);
-                },
-              ),
-              // Pagination buttons
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: pageNumbers.map((page) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: TextButton(
-                        onPressed: () {
-                          // print('Page $page selected');
-                          onPageChange(page);
-                        },
-                        child: Text(
-                          '$page',
-                          style: TextStyle(
-                              color: currentPage == page
-                                  ? Constants.mainColor
-                                  : Constants.iconTurnOffColor,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18),
-                        ),
+                  crossAxisSpacing: 0),
+              itemCount: moviesList.length,
+              itemBuilder: (context, index) {
+                final movie = moviesList[index];
+                return buildMovieCard(
+                    movie: movie,
+                    context: context,
+                    width: MediaQuery.of(context).size.width * 0.452,
+                    padding: 0);
+              },
+            ),
+            // Pagination buttons
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: pageNumbers.map((page) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: TextButton(
+                      onPressed: () {
+                        // print('Page $page selected');
+                        onPageChange(page);
+                      },
+                      child: Text(
+                        '$page',
+                        style: TextStyle(
+                            color: currentPage == page
+                                ? Constants.mainColor
+                                : Constants.iconTurnOffColor,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18),
                       ),
-                    );
-                  }).toList(),
-                ),
+                    ),
+                  );
+                }).toList(),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

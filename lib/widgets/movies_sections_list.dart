@@ -59,7 +59,11 @@ class MoviesSectionsList extends StatelessWidget {
               itemCount: movies.length,
               itemBuilder: (context, index) {
                 final movie = movies[index];
-                return buildMovieCard(movie,context);
+                return buildMovieCard(
+                    movie: movie,
+                    context: context,
+                    width: MediaQuery.of(context).size.width * 0.353,
+                    padding: 12);
               },
             ),
           ),

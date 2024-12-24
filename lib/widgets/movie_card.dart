@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/screens/movie_details_screen.dart';
 import 'package:movie_rating_app/utils/utilities.dart';
+import 'package:movie_rating_app/widgets/rate_widget.dart';
 
-Widget buildMovieCard(MovieModel movie, BuildContext context) {
+Widget buildMovieCard(
+    {required MovieModel movie,
+    required BuildContext context,
+    required double width,
+    required double padding}) {
   return GestureDetector(
     onTap: () => Navigator.push(
         context,
@@ -12,35 +16,19 @@ Widget buildMovieCard(MovieModel movie, BuildContext context) {
           builder: (context) => MovieDetailsScreen(movie),
         )),
     child: Stack(
+      alignment: Alignment.topCenter,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: EdgeInsets.symmetric(horizontal: padding),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
                 getImageUrl(movie.posterPath),
                 fit: BoxFit.cover,
-                width: 145,
+                width: width,
               )),
         ),
-        Positioned(
-            top: 6,
-            left: 23,
-            right: 10,
-            child: Row(children: [
-              SvgPicture.asset(
-                'assets/icons/imdb.svg',
-                height: 15,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                movie.voteAverage.toString().substring(0, 3),
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ]))
+        Positioned(top: 6, left: 23, right: 10, child: RateWidget(movie: movie))
       ],
     ),
   );

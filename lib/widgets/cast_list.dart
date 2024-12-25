@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_rating_app/domain/models/cast_model.dart';
 import 'package:movie_rating_app/utils/constants.dart';
@@ -33,8 +34,9 @@ class CastList extends StatelessWidget {
                 child: ClipRRect(
                     borderRadius: const BorderRadius.vertical(
                         bottom: Radius.circular(50), top: Radius.circular(50)),
-                    child:
-                        Image.network(getImageUrl(castList[index].imagePath))),
+                    child: CachedNetworkImage(
+                      imageUrl: getImageUrl1280(castList[index].imagePath),
+                    )),
               ),
               const SizedBox(
                 height: 8,

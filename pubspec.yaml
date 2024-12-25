@@ -61,6 +61,7 @@ dependencies:
   # Logger
   fimber_io: ^0.7.0
   youtube_player_flutter: ^9.1.1
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:

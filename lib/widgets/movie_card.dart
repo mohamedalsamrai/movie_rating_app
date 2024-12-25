@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/screens/movie_details_screen.dart';
@@ -22,8 +23,9 @@ Widget buildMovieCard(
           padding: EdgeInsets.symmetric(horizontal: padding),
           child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                getImageUrl(movie.posterPath),
+              child: CachedNetworkImage(
+                fadeOutDuration: Duration(),
+                imageUrl: getImageUrl780(movie.posterPath),
                 fit: BoxFit.cover,
                 width: width,
               )),

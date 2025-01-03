@@ -7,4 +7,5 @@ class Constants {
   static const Color customTextFieldColor = Color(0x54545685);
   static const Color iconTurnOffColor = Color(0xFFD9D9D9);
   static const Color black50 = Color(0x80000000);
+  static const Color searchBackgroundColor = Color(0xFF111111);
 }

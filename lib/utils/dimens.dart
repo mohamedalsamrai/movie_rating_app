@@ -16,11 +16,16 @@ class Dimens {
 }
 
 abstract class AppDimensions {
+  final double padding6;
+  final double padding8;
   final double padding10;
   final double padding14;
   final double padding20;
 
   final double radius8;
+  final double radius10;
+  final double radius12;
+  final double searchBarRadius;
 
   final double size10;
   final double size20;
@@ -34,13 +39,29 @@ abstract class AppDimensions {
   final double customTextFieldBorder;
   final double customTextFieldHeight;
   final double movieCarouselMargin;
+  final double searchScreenCrossAxisSpacing;
+  final double searchScreenImageWidth;
+  final double searchScreenMargin;
+  final double searchScreenMainAxisSpacing;
+
+  final double fontSize11;
+  final double fontSize15;
+  final double fontSize18;
+  final double fontSize19;
+  final double fontSize20;
+  final double searchBarFontSize;
 
   AppDimensions._(
+    this.padding6,
+    this.padding8,
     this.padding10,
     this.padding14,
     this.padding20,
 
     this.radius8,
+    this.radius10,
+    this.radius12,
+    this.searchBarRadius,
 
     this.size10,
     this.size20,
@@ -54,18 +75,27 @@ abstract class AppDimensions {
     this.customTextFieldBorder,
     this.customTextFieldHeight,
     this.movieCarouselMargin,
+    this.searchScreenCrossAxisSpacing,
+    this.searchScreenImageWidth,
+    this.searchScreenMargin,
+    this.searchScreenMainAxisSpacing,
 
+    this.fontSize11,
     this.fontSize15,
     this.fontSize18,
-    this.fontSize19
+    this.fontSize19,
+    this.fontSize20,
+    this.searchBarFontSize
   );
-  final double fontSize15;
-  final double fontSize18;
-
-  final double fontSize19;
 }
 
 class _DefaultDimens implements AppDimensions {
+  @override
+  double get padding6 => 6;
+
+  @override
+  double get padding8 => 8;
+
   @override
   double get padding10 => 10;
 
@@ -77,6 +107,15 @@ class _DefaultDimens implements AppDimensions {
 
   @override
   double get radius8 => 8;
+
+  @override
+  double get radius10 => 10;
+
+  @override
+  double get radius12 => 12;
+
+  @override
+  double get searchBarRadius => 50;
 
   @override
   double get size10 => 10;
@@ -112,6 +151,21 @@ class _DefaultDimens implements AppDimensions {
   double get movieCarouselMargin => 60;
 
   @override
+  double get searchScreenCrossAxisSpacing => 8;
+
+  @override
+  double get searchScreenImageWidth => 80;
+
+  @override
+  double get searchScreenMargin => 15;
+
+  @override
+  double get searchScreenMainAxisSpacing => 20;
+
+  @override
+  double get fontSize11 => 11;
+
+  @override
   double get fontSize15 => 15;
 
   @override
@@ -119,9 +173,21 @@ class _DefaultDimens implements AppDimensions {
 
   @override
   double get fontSize19 => 19;
+
+  @override
+  double get fontSize20 => 20;
+
+  @override
+  double get searchBarFontSize => 15.5;
 }
 
 class _SmallSizeDimens implements AppDimensions {
+  @override
+  double get padding6 => 6;
+
+  @override
+  double get padding8 => 8;
+
   @override
   double get padding10 => 10;
 
@@ -133,6 +199,15 @@ class _SmallSizeDimens implements AppDimensions {
 
   @override
   double get radius8 => 8;
+
+  @override
+  double get radius10 => 10;
+
+  @override
+  double get radius12 => 12;
+
+  @override
+  double get searchBarRadius => 50;
 
   @override
   double get size10 => 7.5;
@@ -168,6 +243,21 @@ class _SmallSizeDimens implements AppDimensions {
   double get movieCarouselMargin => 45;
 
   @override
+  double get searchScreenCrossAxisSpacing => 8;
+
+  @override
+  double get searchScreenImageWidth => 80;
+
+  @override
+  double get searchScreenMargin => 15;
+
+  @override
+  double get searchScreenMainAxisSpacing => 20;
+
+  @override
+  double get fontSize11 => 11;
+
+  @override
   double get fontSize15 => 15;
 
   @override
@@ -175,4 +265,10 @@ class _SmallSizeDimens implements AppDimensions {
 
   @override
   double get fontSize19 => 19;
+
+  @override
+  double get fontSize20 => 20;
+
+  @override
+  double get searchBarFontSize => 15.5;
 }

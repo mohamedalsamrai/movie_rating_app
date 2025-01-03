@@ -1,6 +1,4 @@
 <resources>
-    <!-- Tema senza ActionBar -->
     <style name="NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Puoi personalizzare ulteriormente il tema se necessario -->
     </style>
 </resources>

@@ -21,6 +21,7 @@ abstract class NetworkDatasource {
   Future<List<GenreModel>> getAllGenres();
   Future<List<CastModel>> getCast(int id);
   Future<List<TrailerVideoModel>> getTrailerVideo(int id);
+  Future<List<MovieModel>> getMovieBySearch(String query);
 }
 
 /*
@@ -96,6 +97,20 @@ class NetworkDatasourceImpl extends NetworkDatasource {
       return TrailerVideoListDtoModel.fromJson(response.data)
               .results
               ?.map((v) => v.toDomainModel())
+              .toList() ??
+          [];
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  @override
+  Future<List<MovieModel>> getMovieBySearch(String query) async {
+    try {
+      final response = await api.getMovieBySearch(query: query);
+      return MoviesListDtoModel.fromJson(response.data)
+              .results
+              ?.map((movie) => movie.toDomainModel())
               .toList() ??
           [];
     } catch (e) {

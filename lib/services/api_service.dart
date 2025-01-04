@@ -30,7 +30,10 @@ class ApiService {
   Future<Response> getAllGenres() => api.get('/genre/movie/list');
 
   Future<Response> getMoviesByGenre(int idGenre, int pageNo) async {
-    final Map<String, dynamic> queryParams = {'with_genres': idGenre, 'page': pageNo};
+    final Map<String, dynamic> queryParams = {
+      'with_genres': idGenre,
+      'page': pageNo
+    };
     final response = api.get('/discover/movie',
         queryParameters: {...api.options.queryParameters, ...queryParams});
     return response;
@@ -38,5 +41,6 @@ class ApiService {
 
   Future<Response> getCast(int id) => api.get('/movie/$id/credits');
   Future<Response> getTrailerVideo(int id) => api.get('/movie/$id/videos');
-
+  Future<Response> getMovieBySearch({required String query}) =>
+      api.get('/search/movie', queryParameters: {'query': query});
 }

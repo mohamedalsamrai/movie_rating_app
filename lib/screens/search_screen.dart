@@ -18,27 +18,29 @@ class SearchScreen extends ConsumerStatefulWidget {
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+  void _filterItems(String query) {
+    setState(() {
+      _searchQuery = query;
+    });
+  }
 
-  // Callbacks from providers.
-  void _loadPopularMovies() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        ref.read(popularMoviesProvider.notifier).getPopularMovies(pageNo: 1);
-      }
-    );
+  void _loadMoviesBySearch(String query) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(moviesBySearchProvider(query));
+    });
   }
 
   @override
   void initState() {
-    _loadPopularMovies();
+    _loadMoviesBySearch(_searchQuery);
+
     super.initState();
   }
 
-  void _filterItems(String query) { /* TODO: Implement logic. */ }
-
   @override
   Widget build(BuildContext context) {
-    final popularMoviesState = ref.watch(popularMoviesProvider);
+    final moviesState = ref.watch(moviesBySearchProvider(_searchQuery));
 
     return SafeArea(
       child: Scaffold(
@@ -53,7 +55,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
                     fontSize: Dimens.getAppDimens(context).searchBarFontSize,
-                    color: Constants.mainColor
+                    color: Constants.mainColor,
                   ),
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context)!.searchBarHint,
@@ -65,7 +67,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(
-                        Dimens.getAppDimens(context).searchBarRadius
+                        Dimens.getAppDimens(context).searchBarRadius,
                       ),
                       borderSide: BorderSide.none,
                     ),
@@ -73,11 +75,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   onChanged: _filterItems,
                 ),
               ),
-              if (popularMoviesState is LoadPopularMoviesLoading) ... [
+              if (moviesState is AsyncLoading) ...[
                 const _LoadingLayout()
-              ] else if (popularMoviesState is LoadPopularMoviesSuccess) ... [
-                _SuccessLayout(popularMoviesState.movies)
-              ] else ... [
+              ] else if (moviesState is AsyncData<List<MovieModel>>) ...[
+                _SuccessLayout(moviesState.value)
+              ] else ...[
                 const _ErrorLayout()
               ]
             ],
@@ -93,8 +95,7 @@ class _LoadingLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => const Center(
-    child: CircularProgressIndicator(color: Constants.mainColor)
-  );
+      child: CircularProgressIndicator(color: Constants.mainColor));
 }
 
 class _ErrorLayout extends StatelessWidget {
@@ -102,9 +103,9 @@ class _ErrorLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(AppLocalizations.of(context)!.error)),
-    body: Center(child: Text(AppLocalizations.of(context)!.dataNotAvailable))
-  );
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.error)),
+      body:
+          Center(child: Text(AppLocalizations.of(context)!.dataNotAvailable)));
 }
 
 class _SuccessLayout extends StatelessWidget {
@@ -121,28 +122,21 @@ class _SuccessLayout extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              AppLocalizations.of(context)!.searchedMoviesTitle,
-              style: AppStyles.searchedMovieDetail(context).copyWith(
-                fontSize: Dimens.getAppDimens(context).fontSize20
-              )
-            ),
+            Text(AppLocalizations.of(context)!.searchedMoviesTitle,
+                style: AppStyles.searchedMovieDetail(context).copyWith(
+                    fontSize: Dimens.getAppDimens(context).fontSize20)),
             SizedBox(height: Dimens.getAppDimens(context).searchScreenMargin),
             Expanded(
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing:
-                    Dimens.getAppDimens(context).searchScreenMainAxisSpacing,
-                  crossAxisSpacing:
-                    Dimens.getAppDimens(context).searchScreenCrossAxisSpacing,
-                  childAspectRatio: 1.05,
+                      Dimens.getAppDimens(context).searchScreenMainAxisSpacing,
+                  crossAxisSpacing: 1,
                 ),
                 itemCount: filteredItems.length,
                 itemBuilder: (context, index) {
-                  return SearchedMovieCard(
-                    movie: filteredItems[index]
-                  );
+                  return SearchedMovieCard(movie: filteredItems[index]);
                 },
               ),
             ),
@@ -152,4 +146,3 @@ class _SuccessLayout extends StatelessWidget {
     );
   }
 }
-

@@ -15,7 +15,7 @@ class RateWidget extends StatelessWidget {
     return Row(mainAxisSize: MainAxisSize.min, children: [
       SvgPicture.asset(
         'assets/icons/imdb.svg',
-        height: 15,
+        height: 14,
       ),
       const SizedBox(width: 6),
       Text(

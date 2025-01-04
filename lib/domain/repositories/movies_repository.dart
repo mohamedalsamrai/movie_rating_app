@@ -15,4 +15,5 @@ abstract class MoviesRepository {
   Future<List<MovieModel>> getPopularMovies({int pageNo});
 
   Future<List<MovieModel>> getMoviesByGenre(int idGenre,int pageNo);
+   Future<List<MovieModel>> getMovieBySearch(String query);
 }

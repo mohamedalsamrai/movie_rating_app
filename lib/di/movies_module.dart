@@ -7,6 +7,7 @@ import 'package:movie_rating_app/domain/repositories/trailer_video_repository.da
 import 'package:movie_rating_app/domain/usecases/get_all_genres_usecase.dart';
 import 'package:movie_rating_app/domain/usecases/get_cast_usecase.dart';
 import 'package:movie_rating_app/domain/usecases/get_movies_by_genre_usecase.dart';
+import 'package:movie_rating_app/domain/usecases/get_movies_by_search.dart';
 import 'package:movie_rating_app/domain/usecases/get_popular_movies_usecase.dart';
 import 'package:movie_rating_app/domain/usecases/get_trailer_video_uscase.dart';
 
@@ -23,7 +24,12 @@ class MoviesModule implements AbstractModule {
         isSingleton: true);
     injector.map<GetCastUsecase>((i) => GetCastUsecase(i.get<CastRepository>()),
         isSingleton: true);
-         injector
-        .map<GetTrailerVideoUscase>((i) => GetTrailerVideoUscase(i.get<TrailerVideoRepository>()),isSingleton: true);
+    injector.map<GetTrailerVideoUscase>(
+        (i) => GetTrailerVideoUscase(i.get<TrailerVideoRepository>()),
+        isSingleton: true);
+
+    injector.map<GetMoviesBySearch>(
+        (i) => GetMoviesBySearch(i.get<MoviesRepository>()),
+        isSingleton: true);
   }
 }

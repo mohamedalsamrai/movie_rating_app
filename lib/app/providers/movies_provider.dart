@@ -3,6 +3,7 @@ import 'package:movie_rating_app/app/providers/genres_provider.dart';
 import 'package:movie_rating_app/app/providers/injector_provider.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/domain/usecases/get_movies_by_genre_usecase.dart';
+import 'package:movie_rating_app/domain/usecases/get_movies_by_search.dart';
 import 'package:movie_rating_app/domain/usecases/get_popular_movies_usecase.dart';
 
 /*
@@ -95,3 +96,9 @@ final moviesByGenreProvider =
   await Future.wait(futures);
   return moviesByGenreMap;
 });
+final moviesBySearchProvider = FutureProvider.family<List<MovieModel>,String>( 
+  (ref,query) async  {
+    final useCase = ref.watch(injectorProvider).get<GetMoviesBySearch>();
+    return await useCase.invoke(query);
+  }
+);

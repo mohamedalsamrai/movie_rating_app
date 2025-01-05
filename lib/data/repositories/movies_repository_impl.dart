@@ -14,12 +14,17 @@ class MoviesRepositoryImpl extends MoviesRepository {
   MoviesRepositoryImpl(this.networkDatasource);
 
   @override
-  Future<List<MovieModel>> getPopularMovies({int pageNo =1}) {
+  Future<List<MovieModel>> getPopularMovies({int pageNo = 1}) {
     return networkDatasource.getPopularMovies(pageNo);
   }
 
   @override
   Future<List<MovieModel>> getMoviesByGenre(int idGenre, int pageNo) {
-    return networkDatasource.getMoviesByGenre(idGenre,pageNo);
+    return networkDatasource.getMoviesByGenre(idGenre, pageNo);
+  }
+
+  @override
+  Future<List<MovieModel>> getMovieBySearch(String query) {
+    return networkDatasource.getMovieBySearch(query);
   }
 }

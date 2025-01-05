@@ -52,41 +52,36 @@ abstract class AppDimensions {
   final double searchBarFontSize;
 
   AppDimensions._(
-    this.padding6,
-    this.padding8,
-    this.padding10,
-    this.padding14,
-    this.padding20,
-
-    this.radius8,
-    this.radius10,
-    this.radius12,
-    this.searchBarRadius,
-
-    this.size10,
-    this.size20,
-    this.size37,
-    this.size52,
-    this.size80,
-
-    this.bottomNavigationHeight,
-    this.bottomNavigationIconSize,
-    this.customButtonHeight,
-    this.customTextFieldBorder,
-    this.customTextFieldHeight,
-    this.movieCarouselMargin,
-    this.searchScreenCrossAxisSpacing,
-    this.searchScreenImageWidth,
-    this.searchScreenMargin,
-    this.searchScreenMainAxisSpacing,
-
-    this.fontSize11,
-    this.fontSize15,
-    this.fontSize18,
-    this.fontSize19,
-    this.fontSize20,
-    this.searchBarFontSize
-  );
+      this.padding6,
+      this.padding8,
+      this.padding10,
+      this.padding14,
+      this.padding20,
+      this.radius8,
+      this.radius10,
+      this.radius12,
+      this.searchBarRadius,
+      this.size10,
+      this.size20,
+      this.size37,
+      this.size52,
+      this.size80,
+      this.bottomNavigationHeight,
+      this.bottomNavigationIconSize,
+      this.customButtonHeight,
+      this.customTextFieldBorder,
+      this.customTextFieldHeight,
+      this.movieCarouselMargin,
+      this.searchScreenCrossAxisSpacing,
+      this.searchScreenImageWidth,
+      this.searchScreenMargin,
+      this.searchScreenMainAxisSpacing,
+      this.fontSize11,
+      this.fontSize15,
+      this.fontSize18,
+      this.fontSize19,
+      this.fontSize20,
+      this.searchBarFontSize);
 }
 
 class _DefaultDimens implements AppDimensions {
@@ -154,7 +149,7 @@ class _DefaultDimens implements AppDimensions {
   double get searchScreenCrossAxisSpacing => 8;
 
   @override
-  double get searchScreenImageWidth => 80;
+  double get searchScreenImageWidth => 100;
 
   @override
   double get searchScreenMargin => 15;
@@ -246,7 +241,7 @@ class _SmallSizeDimens implements AppDimensions {
   double get searchScreenCrossAxisSpacing => 8;
 
   @override
-  double get searchScreenImageWidth => 80;
+  double get searchScreenImageWidth => 100;
 
   @override
   double get searchScreenMargin => 15;

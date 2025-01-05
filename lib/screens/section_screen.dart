@@ -220,6 +220,9 @@ class _SuccessLayout extends StatelessWidget {
                 }).toList(),
               ),
             ),
+            SizedBox(
+              height: 50,
+            )
           ],
         ),
       ),

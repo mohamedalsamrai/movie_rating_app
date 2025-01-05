@@ -11,6 +11,7 @@ import 'package:movie_rating_app/domain/models/genre_model.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/domain/models/trailer_video_model.dart';
 import 'package:movie_rating_app/utils/constants.dart';
+import 'package:movie_rating_app/utils/utilities.dart';
 import 'package:movie_rating_app/widgets/cast_list.dart';
 import 'package:movie_rating_app/widgets/genre_list.dart';
 import 'package:movie_rating_app/widgets/rate_widget.dart';
@@ -201,14 +202,30 @@ class _SuccessLayoutState extends State<_SuccessLayout> {
                         RateWidget(movie: widget.movieModel),
                         const Spacer(),
                         InkWell(
-                          child: widget.movieModel.movieIsSave
-                              ? SvgPicture.asset("assets/icons/save_on.svg")
-                              : SvgPicture.asset("assets/icons/save_off.svg"),
-                          onTap: () {
-                            setState(() {
-                              widget.movieModel.movieIsSave =
-                                  !widget.movieModel.movieIsSave;
-                            });
+                          child: FutureBuilder<bool>(
+                            future: isMovieSaved(widget.movieModel.id),
+                            builder: (context, snapshot) {
+                              final isSaved = snapshot.data ?? false;
+                              return Icon(
+                                Icons.bookmark,
+                                color: isSaved
+                                    ? Constants.mainColor
+                                    : Constants.iconTurnOffColor,
+                                size: 27,
+                              );
+                            },
+                          ),
+                          onTap: () async {
+                            final movie = widget.movieModel;
+                            final isSaved = await isMovieSaved(movie.id);
+
+                            if (isSaved) {
+                              await removeMovie(movie.id);
+                            } else {
+                              await saveMovie(movie);
+                            }
+
+                            setState(() {});
                           },
                         ),
                       ],

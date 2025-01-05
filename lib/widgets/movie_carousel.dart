@@ -75,18 +75,32 @@ class _MovieCarouselState extends State<MovieCarousel> {
                                   ),
                                 ),
                                 InkWell(
-                                  child: Icon(
-                                    Icons.bookmark,
-                                    color: widget.movies[index].movieIsSave
-                                        ? Constants.mainColor
-                                        : Constants.iconTurnOffColor,
-                                    size: 27,
+                                  child: FutureBuilder<bool>(
+                                    future:
+                                        isMovieSaved(widget.movies[index].id),
+                                    builder: (context, snapshot) {
+                                      final isSaved = snapshot.data ?? false;
+                                      return Icon(
+                                        Icons.bookmark,
+                                        color: isSaved
+                                            ? Constants.mainColor
+                                            : Constants.iconTurnOffColor,
+                                        size: 27,
+                                      );
+                                    },
                                   ),
-                                  onTap: () {
-                                    setState(() {
-                                      widget.movies[index].movieIsSave =
-                                          !widget.movies[index].movieIsSave;
-                                    });
+                                  onTap: () async {
+                                    final movie = widget.movies[index];
+                                    final isSaved =
+                                        await isMovieSaved(movie.id);
+
+                                    if (isSaved) {
+                                      await removeMovie(movie.id);
+                                    } else {
+                                      await saveMovie(movie);
+                                    }
+
+                                    setState(() {});
                                   },
                                 ),
                               ],
@@ -120,3 +134,5 @@ class _MovieCarouselState extends State<MovieCarousel> {
     );
   }
 }
+
+

@@ -33,6 +33,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       height: Dimens.getAppDimens(context).customTextFieldHeight,
       child: TextFormField(
+        validator: (value) {
+        if (value!.isEmpty) {
+          return "the value is empty";
+        }},
         onChanged: widget.onChanged,
         controller: widget.controller,
         obscureText: widget.isPassField != null ? passState : false,

@@ -189,21 +189,19 @@ class _SuccessLayoutState extends State<_SuccessLayout> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Expanded(
-                          child: Text(
-                            widget.movieModel.title,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 15,
-                                color: Color(0xffffffff)),
-                          ),
+                        Text(
+                          widget.movieModel.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                              color: Color(0xffffffff)),
                         ),
                         const SizedBox(
                           width: 15,
                         ),
-                        RateWidget(movie: widget.movieModel),
+                        Expanded(child: RateWidget(movie: widget.movieModel)),
                         const Spacer(),
                         InkWell(
                           child: FutureBuilder<bool>(

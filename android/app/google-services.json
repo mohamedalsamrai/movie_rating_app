@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "710342984776",
+    "project_id": "filmz-27d40",
+    "storage_bucket": "filmz-27d40.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710342984776:android:5f57045401ebe7ca12047d",
+        "android_client_info": {
+          "package_name": "com.example.movie_rating_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCE0Xi1NidL_qYo7sQ8buRPufIMdYGHaDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

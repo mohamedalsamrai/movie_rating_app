@@ -32,7 +32,7 @@ class _BottomNavScreenState extends State<BottomNavScreen>
     const HomeScreen(),
     const SaveScreen(),
     const SearchScreen(),
-    const ProfileScreen(),
+   ProfileScreen(),
   ];
 
   final List<String> _icons = [

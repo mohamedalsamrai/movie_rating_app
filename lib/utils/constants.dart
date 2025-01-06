@@ -9,4 +9,5 @@ class Constants {
   static const Color black50 = Color(0x80000000);
   static const Color searchBackgroundColor = Color(0xFF111111);
   static const String movieBox = "movieBox";
+  static const String profileBox = "profileBox";
 }

@@ -25,6 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       TextEditingController();
   String? email, password, username;
   bool islod = false;
+  GlobalKey<FormState> formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +36,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: EdgeInsets.symmetric(
                 horizontal: Dimens.getAppDimens(context).padding14),
             child: Form(
+              key: formKey,
               child: Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).size.height * 0.09),
@@ -71,23 +73,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       text: AppLocalizations.of(context)!.signUp,
                       color: Constants.mainColor,
                       onTap: () async {
-                        islod = true;
-                        setState(() {});
-                        try {
-                          var auth = FirebaseAuth.instance;
-                          UserCredential user =
-                              await auth.createUserWithEmailAndPassword(
-                                  email: email!, password: password!);
+                        if (formKey.currentState!.validate()) {
+                          islod = true;
+                          setState(() {});
+                          try {
+                            var auth = FirebaseAuth.instance;
+                            UserCredential user =
+                                await auth.createUserWithEmailAndPassword(
+                                    email: email!, password: password!);
 
-                          await saveInitialProfile(username!, email!);
+                            await saveInitialProfile(username!, email!);
 
-                          context.goNamed(NavDestinations.bottomNav.name);
-                          
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'email-already-in-use') {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                                    'The account already exists for that email.')));
+                            context.goNamed(NavDestinations.bottomNav.name);
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'email-already-in-use') {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      'The account already exists for that email.')));
+                            } else if (e.code == 'weak-password') {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      'The password provided is too weak.')));
+                            }
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(e.toString())));
                           }
                           islod = false;
                           setState(() {});

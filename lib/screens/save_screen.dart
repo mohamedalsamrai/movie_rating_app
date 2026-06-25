@@ -4,7 +4,7 @@ import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/utils/constants.dart';
 import 'package:movie_rating_app/utils/dimens.dart';
 import 'package:movie_rating_app/utils/styles.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:movie_rating_app/l10n/app_localizations.dart';
 import 'package:movie_rating_app/widgets/searched_movie_card.dart';
 
 class SaveScreen extends StatefulWidget {

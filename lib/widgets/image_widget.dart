@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageWidget extends StatefulWidget {
+  const ImageWidget({super.key});
+
   @override
   _ImageWidgetState createState() => _ImageWidgetState();
 }
@@ -32,13 +34,13 @@ class _ImageWidgetState extends State<ImageWidget> {
               radius: 50,
               backgroundImage: _imageFile != null ? FileImage(_imageFile!) : null,
               child: _imageFile == null
-                  ? Icon(Icons.person, size: 50)
+                  ? const Icon(Icons.person, size: 50)
                   : null,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _pickImage, 
-              child: Text('Select Image'),
+              child: const Text('Select Image'),
             ),
           ],
         ),

@@ -30,7 +30,7 @@ class _ProfileTextFiledState extends State<ProfileTextFiled> {
           widget.hintText,
           style: AppStyles.searchedMovieDetail(context).copyWith(fontSize: 14),
         ),
-        SizedBox(
+        const SizedBox(
           height: 13,
         ),
         SizedBox(
@@ -58,7 +58,7 @@ class _ProfileTextFiledState extends State<ProfileTextFiled> {
                                 : '';
                             setState(() {});
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.arrow_downward,
                             color: Constants.mainColor,
                           )))

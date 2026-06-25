@@ -83,12 +83,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                 } on FirebaseAuthException catch (e) {
                                   if (e.code == 'user-not-found') {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
+                                        const SnackBar(
                                             content: Text(
                                                 'No user found for that email.')));
                                   } else if (e.code == 'wrong-password') {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
+                                        const SnackBar(
                                             content: Text(
                                                 'Wrong password provided for that user.')));
                                   }
@@ -127,7 +127,7 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
           islod
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(
                   color: Constants.mainColor,
                 ))

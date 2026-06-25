@@ -1,11 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_rating_app/domain/models/movie_model.dart';
 import 'package:movie_rating_app/models/profile_model.dart';
 import 'package:movie_rating_app/utils/constants.dart';
 import 'package:hive/hive.dart';
 
-String getImageUrl780(String path) => 'http://image.tmdb.org/t/p/w780$path';
+String getImageUrl780(String path) {
+  return path == ''
+      ? "https://developers.google.com/static/maps/documentation/streetview/images/error-image-generic.png"
+      : 'http://image.tmdb.org/t/p/w780$path';
+}
+
 String getImageUrl1280(String path) => 'http://image.tmdb.org/t/p/w1280$path';
 
 String getYearForMovie(MovieModel movie) =>
@@ -29,13 +33,14 @@ Future<void> saveProfile(ProfileModel profile) async {
   final box = Hive.box<ProfileModel>(Constants.profileBox);
   await box.put('user_profile', profile);
 }
+
 Future<void> saveInitialProfile(String? username, String email) async {
   final box = Hive.box<ProfileModel>('profileBox');
   final profile = ProfileModel(
-    '', 
-    username??'',
+    '',
+    username ?? '',
     email,
-    '', 
+    '',
   );
   await box.put('user_profile', profile);
 }

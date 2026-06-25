@@ -87,11 +87,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             context.goNamed(NavDestinations.bottomNav.name);
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'email-already-in-use') {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                   content: Text(
                                       'The account already exists for that email.')));
                             } else if (e.code == 'weak-password') {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                                   content: Text(
                                       'The password provided is too weak.')));
                             }
@@ -136,7 +136,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
           islod
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(
                   color: Constants.mainColor,
                 ))

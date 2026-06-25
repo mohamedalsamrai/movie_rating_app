@@ -24,7 +24,7 @@ Widget buildMovieCard(
           child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: CachedNetworkImage(
-                fadeOutDuration: Duration(),
+                fadeOutDuration: const Duration(),
                 imageUrl: getImageUrl780(movie.posterPath),
                 fit: BoxFit.cover,
                 width: width,

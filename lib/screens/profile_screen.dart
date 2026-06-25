@@ -66,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
     await saveProfile(profile);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Profile updated successfully')),
+      const SnackBar(content: Text('Profile updated successfully')),
     );
   }
 
@@ -80,8 +80,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
-                SizedBox(
+                const Spacer(),
+                const SizedBox(
                   width: 40,
                 ),
                 Text(
@@ -89,19 +89,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: AppStyles.searchedMovieDetail(context).copyWith(
                       fontSize: Dimens.getAppDimens(context).fontSize20),
                 ),
-                Spacer(),
+                const Spacer(),
                 IconButton(
                     onPressed: () async {
                       await FirebaseAuth.instance.signOut();
                       context.goNamed(NavDestinations.signUp.name);
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.logout,
                       color: Constants.mainColor,
                     ))
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 23,
             ),
             GestureDetector(
@@ -111,29 +111,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 backgroundImage:
                     _imagePath.isNotEmpty ? FileImage(File(_imagePath)) : null,
                 child: _imagePath.isEmpty
-                    ? Icon(Icons.add_a_photo, size: 50)
+                    ? const Icon(Icons.add_a_photo, size: 50)
                     : null,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ProfileTextFiled(
               controller: _usernameController,
               hintText: 'Username',
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ProfileTextFiled(
               controller: _emailController,
               hintText: "Email",
               readOnly: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ProfileTextFiled(
               readOnly: true,
               controller: _dobController,
               hintText: "Date",
               isDatefiled: true,
             ),
-            SizedBox(height: 86),
+            const SizedBox(height: 86),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

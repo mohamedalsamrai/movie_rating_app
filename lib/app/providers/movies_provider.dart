@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_rating_app/app/providers/genres_provider.dart';
 import 'package:movie_rating_app/app/providers/injector_provider.dart';
@@ -12,7 +13,7 @@ import 'package:movie_rating_app/domain/usecases/get_popular_movies_usecase.dart
     information is expected to change.
 */
 
-abstract class LoadMoviesState {}
+abstract class LoadMoviesState extends Equatable {}
 
 /*
     We have 4 expected states:
@@ -23,20 +24,35 @@ abstract class LoadMoviesState {}
 */
 
 // Popular movies.
-class LoadPopularMoviesInitial extends LoadMoviesState {}
+class LoadPopularMoviesInitial extends LoadMoviesState {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
+}
 
-class LoadPopularMoviesLoading extends LoadMoviesState {}
+class LoadPopularMoviesLoading extends LoadMoviesState {
+  @override
+  List<Object> get props => [];
+}
 
 class LoadPopularMoviesSuccess extends LoadMoviesState {
   final List<MovieModel> movies;
 
   LoadPopularMoviesSuccess(this.movies);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [movies];
 }
 
 class LoadPopularMoviesError extends LoadMoviesState {
   final String message;
 
   LoadPopularMoviesError(this.message);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
 }
 
 // This class calls the use case and sets the state.
@@ -96,9 +112,8 @@ final moviesByGenreProvider =
   await Future.wait(futures);
   return moviesByGenreMap;
 });
-final moviesBySearchProvider = FutureProvider.family<List<MovieModel>,String>( 
-  (ref,query) async  {
-    final useCase = ref.watch(injectorProvider).get<GetMoviesBySearch>();
-    return await useCase.invoke(query);
-  }
-);
+final moviesBySearchProvider =
+    FutureProvider.family<List<MovieModel>, String>((ref, query) async {
+  final useCase = ref.watch(injectorProvider).get<GetMoviesBySearch>();
+  return await useCase.invoke(query);
+});

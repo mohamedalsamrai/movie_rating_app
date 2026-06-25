@@ -36,7 +36,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
         validator: (value) {
         if (value!.isEmpty) {
           return "the value is empty";
-        }},
+        }
+        return null;},
         onChanged: widget.onChanged,
         controller: widget.controller,
         obscureText: widget.isPassField != null ? passState : false,
